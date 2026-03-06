@@ -250,14 +250,14 @@ body {
 }
 
 /* — Number colours — */
-.cell.num-1 { color: var(--num-1); text-shadow: 0 0 6px rgba(91,157,255,.4); }
-.cell.num-2 { color: var(--num-2); text-shadow: 0 0 6px rgba(80,216,144,.4); }
-.cell.num-3 { color: var(--num-3); text-shadow: 0 0 6px rgba(255,107,107,.4); }
-.cell.num-4 { color: var(--num-4); text-shadow: 0 0 6px rgba(167,139,250,.4); }
-.cell.num-5 { color: var(--num-5); text-shadow: 0 0 6px rgba(245,158,66,.4); }
-.cell.num-6 { color: var(--num-6); text-shadow: 0 0 6px rgba(56,217,217,.4); }
-.cell.num-7 { color: var(--num-7); }
-.cell.num-8 { color: var(--num-8); }
+.cell.number-1 { color: var(--num-1); text-shadow: 0 0 6px rgba(91,157,255,.4); }
+.cell.number-2 { color: var(--num-2); text-shadow: 0 0 6px rgba(80,216,144,.4); }
+.cell.number-3 { color: var(--num-3); text-shadow: 0 0 6px rgba(255,107,107,.4); }
+.cell.number-4 { color: var(--num-4); text-shadow: 0 0 6px rgba(167,139,250,.4); }
+.cell.number-5 { color: var(--num-5); text-shadow: 0 0 6px rgba(245,158,66,.4); }
+.cell.number-6 { color: var(--num-6); text-shadow: 0 0 6px rgba(56,217,217,.4); }
+.cell.number-7 { color: var(--num-7); }
+.cell.number-8 { color: var(--num-8); }
 
 /* ---------- 3. FLAGGED (no mine) & 4. FLAGGED on mine ---------- */
 .cell.flagged,
