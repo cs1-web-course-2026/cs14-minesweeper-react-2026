@@ -33,6 +33,7 @@ const gameState = {
   gameTime: 0,
   timerId: null,
   flagsCount: 0,
+  openedCellsCount: 0, 
   field: [],
 };
 
@@ -73,17 +74,16 @@ function countNeighborMines(field, rows, cols) {
 
       let mineCount = 0;
 
-      
-      for (const [directionalRow, directionalCol] of DIRECTIONS) {
-        const neighbourRow = row + directionalRow;
-        const neighbourCol = col + directionalCol;
+      for (const [dRow, dCol] of DIRECTIONS) {
+        const nRow = row + dRow;
+        const nCol = col + dCol;
 
         if (
-          neighbourRow >= 0 &&
-          neighbourRow < rows &&
-          neighbourCol >= 0 &&
-          neighbourCol < cols &&
-          field[neighbourRow][neighbourCol].type === CELL_CONTENT.MINE
+          nRow >= 0 &&
+          nRow < rows &&
+          nCol >= 0 &&
+          nCol < cols &&
+          field[nRow][nCol].type === CELL_CONTENT.MINE
         ) {
           mineCount++;
         }
@@ -102,6 +102,7 @@ function openCell(row, col) {
   if (cell.state === CELL_STATE.OPEN || cell.state === CELL_STATE.FLAGGED) return;
 
   cell.state = CELL_STATE.OPEN;
+  gameState.openedCellsCount++; // ✅ ДОДАНО
   updateCellUI(row, col);
 
   if (cell.type === CELL_CONTENT.MINE) {
@@ -110,17 +111,17 @@ function openCell(row, col) {
   }
 
   if (cell.neighborMines === 0) {
-    for (const [directionalRow, directionalCol] of DIRECTIONS) {
-      const neighbourRow = row + directionalRow;
-      const neighbourCol = col + directionalCol;
+    for (const [dRow, dCol] of DIRECTIONS) {
+      const nRow = row + dRow;
+      const nCol = col + dCol;
 
       if (
-        neighbourRow >= 0 &&
-        neighbourRow < gameState.rows &&
-        neighbourCol >= 0 &&
-        neighbourCol < gameState.cols
+        nRow >= 0 &&
+        nRow < gameState.rows &&
+        nCol >= 0 &&
+        nCol < gameState.cols
       ) {
-        openCell(neighbourRow, neighbourCol);
+        openCell(nRow, nCol);
       }
     }
   }
@@ -138,7 +139,7 @@ function toggleFlag(row, col) {
   if (cell.state === CELL_STATE.CLOSED) {
     cell.state = CELL_STATE.FLAGGED;
     gameState.flagsCount++;
-  } else if (cell.state === CELL_STATE.FLAGGED) {
+  } else {
     cell.state = CELL_STATE.CLOSED;
     gameState.flagsCount--;
   }
@@ -169,24 +170,17 @@ function gameOver(win) {
   stopTimer();
   revealAll(win);
 
-  
   gameMessageElement.textContent = win
     ? 'Ви виграли! 🎉'
     : 'Ви програли! 💣';
 }
 
+
 function checkWin() {
-  let closedOrFlagged = 0;
+  const totalCells = gameState.rows * gameState.cols;
+  const safeCells = totalCells - gameState.minesCount;
 
-  for (let row = 0; row < gameState.rows; row++) {
-    for (let col = 0; col < gameState.cols; col++) {
-      if (gameState.field[row][col].state !== CELL_STATE.OPEN) {
-        closedOrFlagged++;
-      }
-    }
-  }
-
-  if (closedOrFlagged === gameState.minesCount) {
+  if (gameState.openedCellsCount === safeCells) {
     gameOver(true);
   }
 }
@@ -221,22 +215,17 @@ function updateCellUI(row, col) {
 
     if (cell.type === CELL_CONTENT.MINE) {
       cellButton.textContent = '💣';
-      cellButton.setAttribute('aria-label', 'Міна');
     } else if (cell.neighborMines > 0) {
       cellButton.textContent = cell.neighborMines;
-      cellButton.setAttribute('aria-label', `Клітинка, ${cell.neighborMines} мін поруч`);
     } else {
-      cellButton.setAttribute('aria-label', 'Порожня клітинка');
+      cellButton.textContent = '';
     }
 
   } else if (cell.state === CELL_STATE.FLAGGED) {
     cellButton.classList.add('flagged');
     cellButton.textContent = '🚩';
-    cellButton.setAttribute('aria-label', 'Позначена клітинка');
-
   } else {
     cellButton.textContent = '';
-    cellButton.setAttribute('aria-label', 'Закрита клітинка');
   }
 }
 
@@ -253,6 +242,7 @@ function initGame() {
 
   gameState.status = GAME_STATUS.PLAYING;
   gameState.flagsCount = 0;
+  gameState.openedCellsCount = 0; 
 
   updateFlagsUI();
   startTimer();
@@ -264,14 +254,8 @@ function initGame() {
     for (let col = 0; col < gameState.cols; col++) {
 
       const cellButton = document.createElement('button');
-
       cellButton.type = 'button';
       cellButton.className = 'cell';
-      cellButton.setAttribute('role', 'gridcell');
-      cellButton.setAttribute(
-        'aria-label',
-        `Рядок ${row + 1}, стовпець ${col + 1}, закрита клітинка`
-      );
 
       board.appendChild(cellButton);
 
