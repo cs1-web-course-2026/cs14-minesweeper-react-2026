@@ -1,10 +1,11 @@
-# CS-31 Minesweeper Game - React
+# CS-14 Minesweeper Game - React
 
 A React-based implementation of the classic Minesweeper game built with Vite for fast development and hot module replacement.
 
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
+
 - [Node.js](https://nodejs.org/) (version 22.0 or higher)
 - npm (comes with Node.js)
 
@@ -79,4 +80,4 @@ src/
 
 ## License
 
-This project is for educational purposes as part of CS-31 coursework.
+This project is for educational purposes as part of CS-14 coursework.
