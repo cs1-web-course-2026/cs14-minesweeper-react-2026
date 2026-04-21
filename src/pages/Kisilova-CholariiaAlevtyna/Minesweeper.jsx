@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Minesweeper.module.css';
+import Cell from './components/Cell';
 
 export default function Minesweeper() {
   const [grid, setGrid] = useState([]);
@@ -8,7 +9,7 @@ export default function Minesweeper() {
   const [gameOver, setGameOver] = useState(false);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [explodedCell, setExplodedCell] = useState(null);
-  const [showModal, setShowModal] = useState(null); // 'win' або 'lose'
+  const [showModal, setShowModal] = useState(null);
 
   const rows = 10;
   const cols = 10;
@@ -89,7 +90,7 @@ export default function Minesweeper() {
       setGameOver(true);
       setExplodedCell({ r, c });
       newGrid.forEach(row => row.forEach(cell => { if (cell.isMine) cell.state = 'open'; }));
-      setTimeout(() => setShowModal('lose'), 500); // Показуємо модалку через пів секунди
+      setTimeout(() => setShowModal('lose'), 500);
     } else {
       openEmptyCells(newGrid, r, c);
       const totalSafeCells = rows * cols - totalMines;
@@ -128,23 +129,20 @@ export default function Minesweeper() {
           <button className={styles.btnStart} onClick={initGame}>NEW GAME</button>
         </div>
         <div className={styles.board}>
-          {grid.map((row, r) => row.map((cell, c) => (
-            <div
-              key={`${r}-${c}`}
-              className={`${styles.cell} ${styles[cell.state]} ${cell.isMine && cell.state === 'open' ? styles.mine : ''} ${explodedCell?.r === r && explodedCell?.c === c ? styles.exploded : ''}`}
-              data-number={cell.neighborCount}
-              onClick={() => handleCellClick(r, c)}
-              onContextMenu={(e) => handleRightClick(e, r, c)}
-            >
-              {cell.state === 'open' && !cell.isMine && cell.neighborCount > 0 ? cell.neighborCount : ''}
-              {cell.state === 'flagged' && '🚩'}
-              {cell.state === 'open' && cell.isMine && '💣'}
-            </div>
-          )))}
+          {grid.map((row, r) => 
+            row.map((cell, c) => (
+              <Cell 
+                key={`${r}-${c}`}
+                cell={cell}
+                isExploded={explodedCell?.r === r && explodedCell?.c === c}
+                onClick={() => handleCellClick(r, c)}
+                onContextMenu={(e) => handleRightClick(e, r, c)}
+              />
+            ))
+          )}
         </div>
       </div>
 
-      {/* МОДАЛЬНЕ ВІКНО */}
       {showModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
