@@ -32,10 +32,10 @@ function Game() {
     },
     {
       id: 2,
-      title: "Basic Minesweeper",
-      description: "A simple implementation with basic game mechanics",
-      author: "Author Name",
-      link: "#",
+      title: "Modern Glass Minesweeper",
+      description: "A sleek, modern take on the classic minesweeper game with a glassmorphism design and responsive layout,with timer, flagging, and win/lose detection.",
+      author: "Alevtyna Kisilova-Cholariia",
+      link: "/kisilova-cholariia-alevtyna",
       difficulty: "Beginner",
       status: "Complete"
     },
