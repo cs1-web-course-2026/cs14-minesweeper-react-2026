@@ -56,6 +56,15 @@ function Game() {
       link: "#",
       difficulty: "Advanced",
       status: "Planning"
+    },
+    {
+      id: 5,
+  title: "Minesweeper React",
+  description: "Класичний сапер",
+  author: "Peresechanskyi Hryhorii",
+  link: "/PeresechanskyiHryhorii",
+  difficulty: "Beginner",
+  status: "In Progress"
     }
   ]
 

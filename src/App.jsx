@@ -14,6 +14,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="game" element={<Game />} />
         <Route path="mock-game" element={<MockGame />} />
+        <Route path="/PeresechanskyiHryhorii" element={<PeresechanskyiHryhorii />} />
       </Route>
     </Routes>
   )
