@@ -5,6 +5,18 @@ function getNumberClass(value) {
   return styles[`number${value}`];
 }
 
+function getCellContent(cell) {
+  if (cell.state === "flagged") return "🚩";
+
+  if (cell.state !== "opened") return "";
+
+  if (cell.type === "mine") {
+    return cell.isExploded ? "💥" : "💣";
+  }
+
+  return cell.neighborMines || "";
+}
+
 export default function Cell({ cell, onClick, onRightClick }) {
   const classNames = [
     styles.cell,
@@ -25,15 +37,7 @@ export default function Cell({ cell, onClick, onRightClick }) {
       className={classNames}
       aria-label="Minesweeper cell"
     >
-      {cell.state === "flagged"
-        ? "🚩"
-        : cell.state === "opened"
-        ? cell.type === "mine"
-          ? cell.isExploded
-            ? "💥"
-            : "💣"
-          : cell.neighborMines || ""
-        : ""}
+      {getCellContent(cell)}
     </button>
   );
 }
