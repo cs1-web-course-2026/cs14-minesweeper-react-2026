@@ -17,7 +17,11 @@ function getCellContent(cell) {
   return cell.neighborMines || "";
 }
 
-export default function Cell({ cell, onClick, onRightClick }) {
+function getCellAriaLabel(cell, row, col) {
+  return `Row ${row + 1}, column ${col + 1}, ${cell.state}`;
+}
+
+export default function Cell({ cell, row, col, onClick, onRightClick }) {
   const classNames = [
     styles.cell,
     cell.state === "opened" ? styles.opened : styles.closed,
@@ -35,7 +39,7 @@ export default function Cell({ cell, onClick, onRightClick }) {
         onRightClick();
       }}
       className={classNames}
-      aria-label="Minesweeper cell"
+      aria-label={getCellAriaLabel(cell, row, col)}
     >
       {getCellContent(cell)}
     </button>
