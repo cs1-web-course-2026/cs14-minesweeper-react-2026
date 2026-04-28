@@ -1,0 +1,9 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 4px;
+  padding: 8px;
+  border-radius: 16px;
+  background: radial-gradient(circle at top left, #1e293b 0, #020617 70%);
+  border: 1px solid rgba(30, 64, 175, 0.5);
+}
