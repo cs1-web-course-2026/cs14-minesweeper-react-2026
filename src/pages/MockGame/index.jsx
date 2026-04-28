@@ -39,6 +39,7 @@ function MockGame() {
     setBoard(newBoard)
     setGameStatus('playing')
     setTime(0)
+    setMineCount(10)
     setIsFirstClick(true)
   }
 
