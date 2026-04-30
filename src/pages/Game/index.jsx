@@ -23,6 +23,11 @@ function Game() {
   // Add your implementations here by editing this array
   const implementations = [
     {
+  name: 'Yasinska Anastasiia',
+  path: '/yasinska-anastasiia'
+},
+    
+    {
       id: 1,
       title: "Mock Minesweeper Game",
       description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
@@ -41,14 +46,14 @@ function Game() {
       status: "Complete"
     },
     {
-      id: 3,
-      title: "Advanced Minesweeper",
-      description: "Features timer, high scores, and custom difficulty",
-      author: "Author name",
-      link: "#",
-      difficulty: "Intermediate",
-      status: "In Progress"
-    },
+  id: 3,
+  title: "Minesweeper (Yasinska)",
+  description: "My React implementation",
+  author: "Yasinska Anastasiia",
+  link: "/yasinska-anastasiia",
+  difficulty: "Medium",
+  status: "In Progress"
+},
     {
       id: 4,
       title: "Minesweeper with Themes",
