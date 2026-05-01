@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { CELL_STATE, GAME_STATUS, CELL_CONTENT } from "./constants";
-import { createBoard } from "./utils";
+import { createBoard, revealCells } from "./utils";
 import styles from "./Game.module.css";
+
 
 const DEFAULT_ROWS = 8;
 const DEFAULT_COLS = 8;
@@ -28,43 +29,62 @@ export default function MokhNazarGame() {
     setElapsedTime(0);
   }, []);
 
-  const handleCellClick = (row, col) => {
+  const handleCellClick = useCallback((row, col) => {
     if (gameStatus === GAME_STATUS.WON || gameStatus === GAME_STATUS.LOST) return;
     if (gameStatus === GAME_STATUS.IDLE) setGameStatus(GAME_STATUS.PLAYING);
 
     const cell = board[row][col];
     if (cell.state !== CELL_STATE.CLOSED) return;
 
-    const newBoard = [...board.map(r => [...r])];
-    
     if (cell.content === CELL_CONTENT.MINE) {
-      newBoard[row][col].state = CELL_STATE.OPEN;
-      setBoard(newBoard);
+      setBoard((prevBoard) =>
+        prevBoard.map((boardRow, rIdx) =>
+          boardRow.map((c, cIdx) =>
+            rIdx === row && cIdx === col ? { ...c, state: CELL_STATE.OPEN } : c
+          )
+        )
+      );
       setGameStatus(GAME_STATUS.LOST);
       return;
     }
 
-    // Спрощене відкриття для прикладу (без рекурсії flood-fill для економії місця)
-    newBoard[row][col].state = CELL_STATE.OPEN;
+    const newBoard = revealCells(board, row, col, DEFAULT_ROWS, DEFAULT_COLS);
     setBoard(newBoard);
-  };
 
-  const handleCellRightClick = (event, row, col) => {
+    const allSafeCellsOpen = newBoard.every((boardRow) =>
+      boardRow.every((c) =>
+        c.content === CELL_CONTENT.MINE || c.state === CELL_STATE.OPEN
+      )
+    );
+
+    if (allSafeCellsOpen) {
+      setGameStatus(GAME_STATUS.WON);
+    }
+  }, [board, gameStatus]);
+
+  const handleCellRightClick = useCallback((event, row, col) => { // Обернуто в useCallback[cite: 1, 2]
     event.preventDefault();
     if (gameStatus === GAME_STATUS.WON || gameStatus === GAME_STATUS.LOST) return;
-    
-    const newBoard = [...board.map(r => [...r])];
-    const cell = newBoard[row][col];
+
+    const cell = board[row][col];
+    if (cell.state === CELL_STATE.OPEN) return;
 
     if (cell.state === CELL_STATE.CLOSED) {
-      cell.state = CELL_STATE.FLAGGED;
-      setFlagsPlaced(prev => prev + 1);
+      setFlagsPlaced((prev) => prev + 1);
     } else if (cell.state === CELL_STATE.FLAGGED) {
-      cell.state = CELL_STATE.CLOSED;
-      setFlagsPlaced(prev => prev - 1);
+      setFlagsPlaced((prev) => prev - 1);
     }
-    setBoard(newBoard);
-  };
+
+    setBoard((prevBoard) =>
+      prevBoard.map((boardRow, rIdx) =>
+        boardRow.map((c, cIdx) =>
+          rIdx === row && cIdx === col
+            ? { ...c, state: c.state === CELL_STATE.CLOSED ? CELL_STATE.FLAGGED : CELL_STATE.CLOSED }
+            : c
+        )
+      )
+    );
+  }, [board, gameStatus]);
 
   return (
     <main className={styles.gameContainer}>
@@ -75,6 +95,7 @@ export default function MokhNazarGame() {
       </header>
       
       {gameStatus === GAME_STATUS.LOST && <p role="status" aria-live="polite">Ви програли!</p>}
+      {gameStatus === GAME_STATUS.WON && <p role="status" aria-live="polite">Ви виграли!</p>}
 
       <div className={styles.board} role="grid">
         {board.map((row, rIdx) => (
