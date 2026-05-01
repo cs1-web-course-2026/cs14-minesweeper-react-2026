@@ -57,7 +57,16 @@ function Game() {
       link: "#",
       difficulty: "Advanced",
       status: "Planning"
-    }
+    },
+    {
+      id: 5,
+      title: "Minesweeper",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
+      author: "Hurzhii Kateryna",
+      link: "/hurzhii-kateryna",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
   ]
 
   return (
