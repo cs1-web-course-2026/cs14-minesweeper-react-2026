@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './Game.module.css';
 import { implementations } from './data';
 
@@ -54,14 +55,20 @@ export default function Game() {
             <p className={styles.author}>by {impl.author}</p>
             <p className={styles.description}>{impl.description}</p>
             <div className={styles.cardActions}>
-              <a 
-                href={impl.link} 
-                className={styles.linkBtn}
-                target={isInternalLink(impl.link) ? "_self" : "_blank"}
-                rel={isInternalLink(impl.link) ? "" : "noopener noreferrer"}
-              >
-                View Implementation →
-              </a>
+              {isInternalLink(impl.link) ? (
+                <Link to={impl.link} className={styles.linkBtn}>
+                  View Implementation →
+                </Link>
+              ) : (
+                <a
+                  href={impl.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.linkBtn}
+                >
+                  View Implementation →
+                </a>
+              )}
             </div>
           </div>
         ))}

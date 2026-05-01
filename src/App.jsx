@@ -5,6 +5,7 @@ import About from './pages/About'
 import Game from './pages/Game'
 import MockGame from './pages/MockGame'
 import Minesweeper from './pages/Kisilova-CholariiaAlevtyna/Minesweeper';
+
 function App() {
   return (
     <Routes>
