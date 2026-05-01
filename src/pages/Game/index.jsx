@@ -1,72 +1,36 @@
-import styles from './Game.module.css'
+import styles from './Game.module.css';
+import { implementations } from './data';
 
 const STATUS_CLASS = {
   'Complete': styles.statusComplete,
   'In Progress': styles.statusInProgress,
   'Planning': styles.statusPlanning,
-}
+};
 
 const DIFFICULTY_CLASS = {
   'Beginner': styles.difficultyBeginner,
   'Intermediate': styles.difficultyIntermediate,
   'Advanced': styles.difficultyAdvanced,
-}
+};
 
 const CARD_STATUS_CLASS = {
   'Complete': styles.cardStatusComplete,
   'In Progress': styles.cardStatusInProgress,
   'Planning': styles.cardStatusPlanning,
-}
-
-const implementations = [
-  {
-    id: 1,
-    title: "Mock Minesweeper Game",
-    description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
-    author: "Example Implementation",
-    link: "/mock-game",
-    difficulty: "Beginner",
-    status: "Complete"
-  },
-  {
-    id: 2,
-    title: "Modern Glass Minesweeper",
-    description: "A sleek, modern layout, with glassmorphism design and responsive layout, with timer, flagging, and win/lose detection.",
-    author: "Alevtyna Kisilova-Cholariia",
-    link: "/kisilova-cholariia-alevtyna",
-    difficulty: "Beginner",
-    status: "Complete"
-  },
-  {
-    id: 3,
-    title: "Advanced Minesweeper",
-    description: "Features timer, high scores, and custom difficulty",
-    author: "Author name",
-    link: "#",
-    difficulty: "Intermediate",
-    status: "In Progress"
-  },
-  {
-    id: 4,
-    title: "Minesweeper with Themes",
-    description: "Multiple visual themes and sound effects",
-    author: "Author name",
-    link: "#",
-    difficulty: "Advanced",
-    status: "Planning"
-  }
-]
+};
 
 const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Boolean).join(' ');
 
 export default function Game() {
+  const isInternalLink = (link) => link.startsWith('/');
+
   return (
     <div className={styles.gameContainer}>
       <div className={styles.gameHeader}>
         <h1>Student Implementations</h1>
         <p>Browse student minesweeper implementations</p>
         <div className={styles.instructions}>
-          <p><strong>To add implementations:</strong> Edit the implementations array in the code</p>
+          <p><strong>To add implementations:</strong> Edit the data.js file</p>
         </div>
       </div>
 
@@ -93,8 +57,8 @@ export default function Game() {
               <a 
                 href={impl.link} 
                 className={styles.linkBtn}
-                target={impl.link.startsWith('/') ? "_self" : "_blank"}
-                rel={impl.link.startsWith('/') ? "" : "noopener noreferrer"}
+                target={isInternalLink(impl.link) ? "_self" : "_blank"}
+                rel={isInternalLink(impl.link) ? "" : "noopener noreferrer"}
               >
                 View Implementation →
               </a>
@@ -106,9 +70,9 @@ export default function Game() {
       {implementations.length === 0 && (
         <div className={styles.emptyState}>
           <h2>No implementations yet</h2>
-          <p>Add implementations by editing the code</p>
+          <p>Add implementations by editing the data file</p>
         </div>
       )}
     </div>
-  )
+  );
 }
