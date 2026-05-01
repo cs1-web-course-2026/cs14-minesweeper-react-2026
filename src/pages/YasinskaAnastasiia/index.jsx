@@ -92,11 +92,20 @@ function GameStatus({ gameStatus }) {
 function Cell({ cell, onOpen, onFlag }) {
   return (
     <button
-      type="button"
-      className={`${styles.cell} ${cell.isOpen ? styles.open : ""}`}
-      onClick={onOpen}
-      onContextMenu={onFlag}
-    >
+  type="button"
+  aria-label={`Row ${cell.row + 1}, column ${cell.col + 1}, ${
+    cell.isFlag
+      ? "flagged"
+      : cell.isOpen
+      ? cell.isMine
+        ? "mine"
+        : "open"
+      : "closed"
+  }`}
+  className={`${styles.cell} ${cell.isOpen ? styles.open : ""}`}
+  onClick={onOpen}
+  onContextMenu={onFlag}
+>
       {cell.isFlag
         ? "🚩"
         : cell.isOpen
