@@ -1,12 +1,20 @@
+<<<<<<< HEAD
 # Copilot Instructions for Minesweeper
 
 These instructions guide GitHub Copilot when generating or suggesting code for this project.
+=======
+# Copilot Instructions for Minesweeper — Lab 4 (React)
+
+These instructions guide GitHub Copilot when generating or suggesting code for this project.
+This is **Lab 4**: a React implementation of the Minesweeper game built with Vite and CSS Modules.
+>>>>>>> origin/main
 Follow all conventions below consistently across every file.
 
 ---
 
 ## Meaningful Naming
 
+<<<<<<< HEAD
 Always use full, descriptive names for every variable, parameter, and function. Never use
 single-letter names or cryptic abbreviations.
 
@@ -31,23 +39,72 @@ single-letter names or cryptic abbreviations.
 
 - Use verb-noun pairs that clearly describe what the function does.
 - Examples: `revealCell`, `countAdjacentMines`, `toggleFlag`, `checkWinCondition`, `renderBoard`.
+=======
+Always use full, descriptive names for every variable, parameter, function, and component. Never
+use single-letter names or cryptic abbreviations.
+
+### Variable and parameter naming
+
+| Avoid                    | Use instead                          |
+| ------------------------ | ------------------------------------ |
+| `r`                      | `row`                                |
+| `c`                      | `col`                                |
+| `nr`                     | `neighbourRow`                       |
+| `nc`                     | `neighbourCol`                       |
+| `dr`                     | `directionalRow`                     |
+| `dc`                     | `directionalCol`                     |
+| `i`, `j` (in grid loops) | `row`, `col`                         |
+| `n`                      | `count` or a domain-specific name    |
+| `el`                     | `element`                            |
+| `btn`                    | `button`                             |
+| `val`                    | `value`                              |
+| `arr`                    | domain-specific name (e.g. `cells`)  |
+| `e`                      | `event`                              |
+| `cb`                     | `callback` or a verb like `onReveal` |
+
+### Component and hook naming
+
+- **Components** use PascalCase and describe the UI element: `GameBoard`, `CellButton`,
+  `StatusBar`, `MineCounter`.
+- **Custom hooks** start with `use` and describe the value/behaviour they encapsulate:
+  `useGameState`, `useTimer`, `useMineCounter`.
+- **Event-handler props** start with `on`: `onCellClick`, `onCellRightClick`, `onRestart`.
+- **Handler implementations** inside a component start with `handle`: `handleCellClick`,
+  `handleRestart`.
+
+### Function naming
+
+- Use verb-noun pairs: `revealCell`, `countAdjacentMines`, `toggleFlag`, `checkWinCondition`,
+  `createBoard`, `placeMines`.
+>>>>>>> origin/main
 
 ### General rules
 
 - Prioritise readability over brevity.
 - Names must be self-documenting: a reader should understand intent without needing a comment.
+<<<<<<< HEAD
 - Use camelCase for variables and functions, UPPER_SNAKE_CASE for top-level constants.
+=======
+- Use camelCase for variables, functions, and props; PascalCase for components and types;
+  UPPER_SNAKE_CASE for top-level constants.
+>>>>>>> origin/main
 
 ---
 
 ## Enums and Constants
 
 Use constant objects (enum-style) instead of raw string or number literals wherever a fixed set
+<<<<<<< HEAD
 of values exists. Define these objects at the top of the relevant module.
+=======
+of values exists. Define these objects in a dedicated constants file or at the top of the
+relevant module.
+>>>>>>> origin/main
 
 ### Pattern
 
 ```js
+<<<<<<< HEAD
 const CELL_STATE = {
   OPEN: 'open',
   CLOSED: 'closed',
@@ -64,11 +121,31 @@ const GAME_STATUS = {
 const CELL_CONTENT = {
   MINE: 'mine',
   EMPTY: 'empty',
+=======
+// src/pages/{SurnameName}/constants/game.js
+export const CELL_STATE = {
+  CLOSED: "closed",
+  OPEN: "open",
+  FLAGGED: "flagged",
+};
+
+export const GAME_STATUS = {
+  IDLE: "idle",
+  PLAYING: "playing",
+  WON: "won",
+  LOST: "lost",
+};
+
+export const CELL_CONTENT = {
+  MINE: "mine",
+  EMPTY: "empty",
+>>>>>>> origin/main
 };
 ```
 
 ### Usage
 
+<<<<<<< HEAD
 ```js
 // Good
 cell.state = CELL_STATE.CLOSED;
@@ -77,25 +154,89 @@ game.status = GAME_STATUS.PLAYING;
 // Bad — never use raw literals scattered through the code
 cell.state = 'closed';
 game.status = 'playing';
+=======
+```jsx
+// Good
+if (cell.state === CELL_STATE.FLAGGED) { ... }
+if (gameStatus === GAME_STATUS.WON) { ... }
+
+// Bad — never use raw literals scattered through components
+if (cell.state === 'flagged') { ... }
+if (gameStatus === 'won') { ... }
+>>>>>>> origin/main
 ```
 
 ### Rules
 
+<<<<<<< HEAD
 - Always reference the constant object in logic, conditionals, and assignments.
 - Never duplicate the same string or magic number in more than one place.
 - Group related constants into a single object.
 - Place constant objects at the top of the file, before any functions.
+=======
+- Always reference the constant object in logic, conditionals, and JSX class conditions.
+- Never duplicate the same string or magic number in more than one place.
+- Group related constants into a single exported object.
+- Place constant objects in your own `constants/game.js` (relative to your `src/pages/{SurnameName}/` folder).
+
+---
+
+## Project Structure
+
+Each student works in a **fully self-contained folder** under `src/pages/{SurnameName}/`.
+All constants, utils, hooks, and sub-components live _inside_ that folder — never in shared
+top-level directories. This eliminates merge conflicts between students and makes code-review
+boundaries obvious.
+
+```
+src/
+├── components/             # Shared scaffold only (Layout, Nav) — do not modify
+├── pages/
+│   ├── Game/
+│   │   └── index.jsx        # Add your entry to the implementations list here
+│   └── {SurnameName}/       # ← your entire submission lives here
+│       ├── index.jsx         # Page entry point (export default)
+│       ├── Game.module.css
+│       ├── constants.js      # CELL_STATE, GAME_STATUS, CELL_CONTENT, …
+│       ├── utils.js          # createBoard, placeMines, calculateAdjacency, revealCell, floodFillReveal, checkWinCondition, isInBounds
+│       ├── hooks/
+│       │   ├── useGameState.js
+│       │   └── useTimer.js
+│       └── components/
+│           ├── Board.jsx
+│           ├── Board.module.css
+│           ├── Cell.jsx
+│           ├── Cell.module.css
+│           ├── Timer.jsx
+│           ├── Timer.module.css
+│           ├── GameStatus.jsx
+│           ├── GameStatus.module.css
+│           ├── RestartButton.jsx
+│           └── RestartButton.module.css
+├── App.jsx                   # Do not modify — only add your route
+└── main.jsx                  # Do not modify
+```
+
+> **Rule:** never place your files anywhere outside `src/pages/{SurnameName}/`,
+> except for the two required shared-file edits described in the Repository Structure section.
+> Never modify files that belong to another student or to the shared scaffold.
+>>>>>>> origin/main
 
 ---
 
 ## Spacing and Formatting
 
+<<<<<<< HEAD
 Consistent spacing makes the code easier to scan and review.
+=======
+Consistent spacing makes code easier to scan and review.
+>>>>>>> origin/main
 
 ### Group separation
 
 Separate distinct groups of code with a single blank line:
 
+<<<<<<< HEAD
 1. **Constants / configuration** — one block at the top.
 2. **Helper / utility functions** — one block.
 3. **Core logic functions** — one block.
@@ -150,24 +291,427 @@ function revealCell(board, row, col) {
 
   return cell;
 }
+=======
+1. **Imports** — grouped: React, third-party, local.
+2. **Constants / configuration** — one block before the component.
+3. **Component function** — props destructured in parameters.
+4. **Hooks** (state, effects, custom hooks) — at the top of the component body.
+5. **Event handlers** — `handle*` functions after hooks.
+6. **Return / JSX** — preceded by a blank line.
+
+### Example
+
+```jsx
+import { useState, useCallback } from "react";
+
+import { CELL_STATE, GAME_STATUS } from "./constants/game";
+import { createBoard, revealCell, toggleFlag } from "./utils/board";
+import CellButton from "./components/CellButton";
+
+import styles from "./Game.module.css";
+
+const DEFAULT_ROWS = 9;
+const DEFAULT_COLS = 9;
+const DEFAULT_MINE_COUNT = 10;
+
+function Game() {
+  const [board, setBoard] = useState(() =>
+    createBoard(DEFAULT_ROWS, DEFAULT_COLS),
+  );
+  const [gameStatus, setGameStatus] = useState(GAME_STATUS.IDLE);
+  const [flagsPlaced, setFlagsPlaced] = useState(0);
+
+  const handleCellClick = useCallback(
+    (row, col) => {
+      if (gameStatus === GAME_STATUS.WON || gameStatus === GAME_STATUS.LOST) {
+        return;
+      }
+
+      setBoard((previousBoard) => revealCell(previousBoard, row, col));
+    },
+    [gameStatus],
+  );
+
+  const handleRestart = useCallback(() => {
+    setBoard(createBoard(DEFAULT_ROWS, DEFAULT_COLS));
+    setGameStatus(GAME_STATUS.IDLE);
+    setFlagsPlaced(0);
+  }, []);
+
+  return (
+    <main className={styles.game}>
+      <header className={styles.statusBar}>
+        <button type="button" onClick={handleRestart} aria-label="Restart game">
+          🔄
+        </button>
+        <span>{DEFAULT_MINE_COUNT - flagsPlaced} mines remaining</span>
+      </header>
+
+      <div className={styles.board} role="grid">
+        {board.map((boardRow, row) =>
+          boardRow.map((cell, col) => (
+            <CellButton
+              key={`${row}-${col}`}
+              cell={cell}
+              row={row}
+              col={col}
+              onReveal={handleCellClick}
+              onFlag={handleCellRightClick}
+            />
+          )),
+        )}
+      </div>
+    </main>
+  );
+}
+
+export default Game;
+>>>>>>> origin/main
 ```
 
 ### Rules
 
+<<<<<<< HEAD
 - One blank line between logical sections inside a function.
 - Two blank lines between top-level function definitions.
+=======
+- One blank line between logical sections inside a component.
+- Two blank lines between top-level declarations / component definitions.
+>>>>>>> origin/main
 - A blank line before every `return` statement (except single-expression arrow functions).
 - No trailing whitespace.
 - Use 2-space indentation consistently.
 
 ---
 
+<<<<<<< HEAD
 ## General Best Practices
 
 - **Pure functions where possible** — avoid side effects inside helpers that compute values.
 - **Single responsibility** — each function should do exactly one thing.
 - **No magic numbers** — define numeric constants (e.g. `const DEFAULT_MINE_COUNT = 10`).
 - **Early returns** — use guard clauses to reduce nesting instead of deeply nested `if/else`.
+=======
+## React Component Conventions
+
+### Functional components only
+
+Use functional components with hooks — no class components.
+
+```jsx
+// Good
+function CellButton({ cell, row, col, onReveal, onFlag }) { ... }
+
+// Bad
+class CellButton extends React.Component { ... }
+```
+
+### Props
+
+- Destructure props in the function signature.
+- Use descriptive prop names (`onReveal`, not `onClick`).
+- Keep components focused: one responsibility per component.
+
+### Key prop
+
+When rendering lists, always use a stable, unique `key` — never use the array index when the
+list items can change:
+
+```jsx
+// Good — stable key based on domain identity
+board.map((row, rowIndex) =>
+  row.map((cell, colIndex) => (
+    <CellButton key={`${rowIndex}-${colIndex}`} ... />
+  ))
+)
+
+// Bad — index key in a dynamic list
+cells.map((cell, index) => <CellButton key={index} ... />)
+```
+
+### Immutable state updates
+
+Never mutate state directly. Always create a new array/object:
+
+```jsx
+// Good
+setBoard((previousBoard) =>
+  previousBoard.map((boardRow, row) =>
+    boardRow.map((cell, col) => {
+      if (row === targetRow && col === targetCol) {
+        return { ...cell, state: CELL_STATE.OPEN };
+      }
+
+      return cell;
+    }),
+  ),
+);
+
+// Bad — direct mutation
+board[row][col].state = CELL_STATE.OPEN;
+setBoard(board);
+```
+
+---
+
+## Pure Logic vs. React
+
+Game logic (board creation, mine placement, flood-fill reveal, win/loss detection) must be
+written as **pure functions** in `src/utils/` and imported by hooks or components — never
+written inline inside JSX or event handlers.
+
+```
+src/utils/board.js     — createBoard, placeMines, calculateAdjacency
+src/utils/reveal.js    — revealCell, floodFillReveal
+src/utils/checks.js    — checkWinCondition, isInBounds
+```
+
+### Rules
+
+- Pure functions receive all inputs as parameters and return new values — no side effects.
+- They must not import from React or call `useState` / `useEffect`.
+- Cover pure functions with unit tests if the course requires it.
+
+---
+
+## State Management
+
+All mutable game state lives in React state (via `useState` or `useReducer`) inside a custom
+hook — never as module-level `let`/`var` declarations.
+
+### Preferred pattern — `useReducer` for complex state
+
+```js
+// src/hooks/useGameState.js
+import { useReducer, useCallback } from "react";
+
+import { GAME_STATUS } from "../constants/game";
+import { createBoard } from "../utils/board";
+
+const DEFAULT_CONFIG = { rows: 9, cols: 9, mineCount: 10 };
+
+function createInitialState(config = DEFAULT_CONFIG) {
+  return {
+    board: createBoard(config.rows, config.cols),
+    gameStatus: GAME_STATUS.IDLE,
+    flagsPlaced: 0,
+    elapsedSeconds: 0,
+    config,
+  };
+}
+
+function gameReducer(state, action) {
+  switch (action.type) {
+    case "RESTART":
+      return createInitialState(state.config);
+    case "REVEAL_CELL":
+    // return updated state
+    case "TOGGLE_FLAG":
+    // return updated state
+    default:
+      return state;
+  }
+}
+
+export function useGameState() {
+  const [state, dispatch] = useReducer(
+    gameReducer,
+    undefined,
+    createInitialState,
+  );
+
+  const restart = useCallback(() => dispatch({ type: "RESTART" }), []);
+
+  return { state, restart };
+}
+```
+
+### Rules
+
+- Do not declare `let isGameRunning`, `let flagsPlaced`, etc. at module level.
+- All runtime state belongs in `useState` / `useReducer`.
+- Pass state slices as props or expose them via a custom hook — never use mutable global
+  objects.
+
+---
+
+## Semantic JSX
+
+Use the correct HTML elements in JSX. Never use `<div>` or `<span>` for interactive controls.
+
+### Structure
+
+Every page must use landmark elements:
+
+```jsx
+function GamePage() {
+  return (
+    <>
+      <header className={styles.statusBar}>
+        <button type="button" aria-label="Restart game" onClick={handleRestart}>
+          🔄
+        </button>
+        <span id="mine-counter">{minesRemaining} mines</span>
+        <span id="timer">{elapsedSeconds}s</span>
+      </header>
+
+      <main>
+        <div
+          className={styles.board}
+          role="grid"
+          aria-label="Minesweeper board"
+        >
+          {/* cells */}
+        </div>
+        <p role="status" aria-live="polite">
+          {gameMessage}
+        </p>
+      </main>
+    </>
+  );
+}
+```
+
+### Rules
+
+- Use `<main>` for the primary game area.
+- Use `<header>` for the status bar and controls.
+- Use `<button type="button">` for every interactive cell and control.
+- Give `index.html` a meaningful `<title>` — never leave it as "Document".
+
+---
+
+## Accessibility
+
+All users must be able to understand and interact with the game.
+
+### Required attributes
+
+- `lang` is already set on `<html>` in `index.html` — do not remove it.
+- Every `<img>` must have an `alt` attribute:
+  ```jsx
+  <img src={flagIcon} alt="Flag" />
+  <img src={sparkle} alt="" /> {/* decorative */}
+  ```
+- Every `<button>` without visible text must have `aria-label`:
+  ```jsx
+  <button type="button" aria-label="Restart game">
+    🔄
+  </button>
+  ```
+
+### Dynamic game feedback
+
+Update a JSX element instead of calling `alert()`:
+
+```jsx
+// Good
+<p role="status" aria-live="polite">
+  {gameMessage}
+</p>;
+
+// Bad
+alert("You won!");
+```
+
+### Cell buttons
+
+Each rendered cell must carry an `aria-label` describing its current state:
+
+```jsx
+function CellButton({ cell, row, col, onReveal, onFlag }) {
+  const label = `Row ${row + 1}, column ${col + 1}, ${cell.state}`;
+
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      className={styles[cell.state]}
+      onClick={() => onReveal(row, col)}
+      onContextMenu={(event) => {
+        event.preventDefault();
+        onFlag(row, col);
+      }}
+    />
+  );
+}
+```
+
+---
+
+## CSS Modules
+
+This project uses CSS Modules (`.module.css`). Follow these rules:
+
+### Import and usage
+
+```jsx
+import styles from './Game.module.css';
+
+// Good
+<div className={styles.board}>
+
+// Bad — global class strings
+<div className="board">
+```
+
+### Conditional classes
+
+Use template literals or a utility; never string-concatenate raw class names:
+
+```jsx
+const cellClass = [
+  styles.cell,
+  cell.state === CELL_STATE.OPEN ? styles.open : "",
+  cell.hasMine && cell.state === CELL_STATE.OPEN ? styles.mine : "",
+]
+  .filter(Boolean)
+  .join(" ");
+```
+
+### No magic-number font sizes
+
+```css
+/* Bad */
+.cell {
+  font-size: 600%;
+}
+
+/* Good */
+.cell {
+  font-size: var(--cell-font-size, 1.5rem);
+}
+```
+
+### No duplicate declarations
+
+Never declare the same property twice in the same rule block.
+
+### Domain values as custom properties
+
+```css
+/* In your module or a shared variables file */
+:root {
+  --board-columns: 9;
+  --cell-size: 2.5rem;
+  --animation-duration: 0.3s;
+}
+```
+
+---
+
+## General Best Practices
+
+- **Pure functions** — game logic in `src/utils/` must be free of side effects.
+- **Single responsibility** — each component and function does exactly one thing.
+- **No magic numbers** — use named constants (`DEFAULT_MINE_COUNT`, `DIRECTIONS`).
+- **Early returns** — use guard clauses to reduce nesting.
+- **No direct DOM access** — never call `document.querySelector` / `getElementById` inside
+  React components. Use refs (`useRef`) only when absolutely necessary (e.g. focusing an
+  element after an interaction).
+- **`useEffect` discipline** — always supply a dependency array. Clean up timers and
+  subscriptions in the cleanup function.
+>>>>>>> origin/main
 - **Consistent style** — apply all rules above to every file in the project, not just new code.
 
 ---
@@ -211,6 +755,7 @@ following guidance:
 
 ## Repository Structure
 
+<<<<<<< HEAD
 All files submitted by a student must be placed inside a dedicated top-level folder named
 after the student using the `SurnameName` format (e.g. `SmithJohn/`, `MokhNazar/`).
 
@@ -221,10 +766,32 @@ after the student using the `SurnameName` format (e.g. `SmithJohn/`, `MokhNazar/
 - The folder name must follow the `SurnameName` convention: surname first, given name second,
   no separator, each part capitalised (PascalCase).
 - Do not modify files outside your own `/{SurnameName}/` folder.
+=======
+All files submitted by a student must be placed inside a dedicated folder under `src/pages/`,
+named after the student using the `SurnameName` format (e.g. `SmithJohn/`, `MokhNazar/`).
+
+### Rules
+
+- Every new file must reside under `src/pages/{SurnameName}/` — never in the repository root
+  or any other folder.
+- The folder name must follow the `SurnameName` convention: surname first, given name second,
+  no separator, each part capitalised (PascalCase).
+- Outside your own folder, exactly **two** shared-file edits are permitted and required:
+  1. Add one `<Route>` entry to `src/App.jsx`. The route `path` must follow the kebab-case
+     format `{surname-name}` (e.g. `smith-john`, `mokh-nazar`). No other changes to that
+     file are permitted.
+  2. Add one entry to the `implementations` list in `src/pages/Game/index.jsx`. No other
+     changes to that file are permitted.
+- Do not modify any other shared files (`src/main.jsx`, `src/global.css`,
+  `index.html`, config files, etc.).
+- Do not add styles to `src/global.css` or any other shared stylesheet. All styles
+  must live inside your own `src/pages/{SurnameName}/` folder using CSS Modules.
+>>>>>>> origin/main
 
 ### Examples
 
 ```
+<<<<<<< HEAD
 SmithWill/
   index.html
   styles.css
@@ -233,6 +800,18 @@ SmithWill/
 DeppJohny/
   index.html
   styles.css
+=======
+src/pages/
+├── SmithWill/
+│   ├── index.jsx
+│   ├── Game.module.css
+│   └── components/
+│       ├── CellButton.jsx
+│       └── StatusBar.jsx
+└── DeppJohny/
+    ├── index.jsx
+    └── Game.module.css
+>>>>>>> origin/main
 ```
 
 ---
@@ -247,25 +826,42 @@ Every pull request title must begin with a lab identifier followed by a colon an
 lab{number}: <short description>
 ```
 
+<<<<<<< HEAD
 ### Examples
 
 ```
 lab1: initial board rendering
 lab2: mine placement logic
 lab3: reveal and flag interactions
+=======
+### Example for this repo
+
+```
+lab4: implement React Minesweeper
+lab4: add flood-fill reveal
+lab4: add flag toggling and win detection
+>>>>>>> origin/main
 ```
 
 ### Rules
 
+<<<<<<< HEAD
 - `{number}` is a positive integer matching the lab assignment number (e.g. `lab1`, `lab12`).
 - The description after the colon must be lowercase and concise.
 - No PR should be opened without the `lab{number}:` prefix — reviewers will reject titles that
   do not follow this format.
+=======
+- This repository is **Lab 4** — all PR titles must use `lab4:`.
+- The description after the colon must be lowercase and concise.
+- No PR should be opened without the `lab4:` prefix — reviewers will reject titles that do not
+  follow this format.
+>>>>>>> origin/main
 
 ### Reviewer checks
 
 When reviewing a pull request, verify all of the following before approving:
 
+<<<<<<< HEAD
 1. **PR title** starts with `lab{number}: ` as described above.
 2. **All changed files** are inside the author's own `/{SurnameName}/` folder — no files
    outside that folder should be added, modified, or deleted.
@@ -303,3 +899,61 @@ When reviewing a pull request, verify all of the following before approving:
      handlers) rather than extracted into reusable functions, flag this as a medium-severity
      issue and suggest extracting it.
    - Any JavaScript found in lab1 files (carry-over) is still a **high**-severity issue.
+=======
+1. **PR title** starts with `lab4: ` as described above.
+
+2. **All changed files** are inside the author's own `src/pages/{SurnameName}/` folder, with
+   exactly two permitted shared-file edits:
+   - One `<Route>` entry added to `src/App.jsx`. The route `path` must be kebab-case
+     (`{surname-name}`). Any other change to `src/App.jsx` is a **high-severity** issue.
+   - One entry added to the `implementations` list in `src/pages/Game/index.jsx`. Any other
+     change to that file is a **high-severity** issue.
+     No other files outside the student's folder should be added, modified, or deleted. Shared
+     infrastructure files (`main.jsx`, `global.css`, `vite.config.js`, `package.json`,
+     etc.) must not be touched.
+   - If `src/global.css` or any other shared stylesheet was modified, flag it as a
+     **high-severity** issue and request changes: all styles must live in the student's own
+     CSS Module files inside `src/pages/{SurnameName}/`.
+
+3. **No peer's folder has been fully deleted.** If the diff shows that every file under a
+   `src/pages/{SurnameName}/` folder belonging to _another_ student has been removed, flag it
+   immediately.
+   - Request changes explaining which folder was unintentionally deleted and asking the author
+     to restore it (e.g. `git checkout main -- src/pages/SmithWill`) before the PR can be
+     merged.
+
+4. **React functional components only.** Verify that no class components are used anywhere in
+   the student's folder.
+   - If a class component is found, flag it as a **medium-severity** issue and ask the student
+     to rewrite it as a functional component with hooks.
+
+5. **No direct DOM manipulation.** Verify that the student's code does not contain
+   `document.querySelector`, `document.getElementById`, `addEventListener` (outside React),
+   `innerHTML`, `createElement`, `classList`, etc.
+   - If DOM manipulation is found, this is a **high-severity** issue — request changes with a
+     comment explaining that all DOM updates must go through React state and JSX, not direct
+     DOM API calls.
+
+6. **No `alert()` / `confirm()` / `prompt()`.** Game feedback (win, loss) must be shown via
+   JSX state, not browser dialogs.
+   - If found, flag as **high-severity** and request changes.
+
+7. **State immutability.** Verify that state is never mutated directly (e.g. `board[r][c].state = …`
+   followed by `setBoard(board)`).
+   - If direct mutation is found, flag as **high-severity**.
+
+8. **Pure logic separation.** Game logic functions (`createBoard`, `revealCell`, etc.) should
+   live in `src/utils/` or equivalent — not inline inside JSX or event handlers.
+   - If logic is duplicated inline, flag as a **medium-severity** issue and suggest extraction.
+
+9. **CSS Modules used.** Styles must be imported as a CSS Module and applied via `styles.*`
+   — not as plain global class strings.
+   - If global classes are used, flag as a **low-severity** issue.
+
+10. **Playable game.** The submission must produce a working Minesweeper:
+    - Board is rendered dynamically from state.
+    - Left-click reveals a cell.
+    - Right-click toggles a flag.
+    - Win and loss states are detected and displayed in the UI.
+    - Mine count / remaining flags indicator is updated in the UI.
+>>>>>>> origin/main

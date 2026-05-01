@@ -26,10 +26,18 @@ Write every review comment as a **friendly but honest teacher**:
 > harder to read at a glance. Renaming them to `row` and `col` will make your intent instantly
 > clear to anyone reading the code — including future you!"_
 
+<<<<<<< HEAD
 > ❌ Too soft for a violation: _"You might want to consider not including JS files."_
 > ✅ Good: _"🔴 **lab1 requires HTML and CSS only — no JavaScript.** The file `script.js` must
 > be removed before this PR can be merged. lab1 is specifically designed to practise pure HTML
 > structure and CSS styling. Please delete the file, update html and push again."_
+=======
+> ❌ Too soft for a violation: _"You might want to consider not using class components."_
+> ✅ Good: _"🔴 **lab4 requires functional components only — no class components.** The component
+> `CellButton` is written as a class and must be rewritten as a functional component with hooks
+> before this PR can be merged. lab4 is specifically designed to practise React hooks and
+> functional patterns. Please refactor and push again."_
+>>>>>>> origin/main
 
 ---
 
@@ -54,7 +62,11 @@ This ensures all files read from disk during the review are up to date with the 
 git remote -v
 ```
 
+<<<<<<< HEAD
 Extract the `owner` and `repo` from the remote URL (e.g. `cs1-web-course-2026` / `cs11-minesweeper-2026`).
+=======
+Extract the `owner` and `repo` from the remote URL (e.g. `cs1-web-course-2026` / `cs14-minesweeper-react-2026`).
+>>>>>>> origin/main
 
 ---
 
