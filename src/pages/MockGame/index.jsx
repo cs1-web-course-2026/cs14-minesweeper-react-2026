@@ -3,8 +3,8 @@ import styles from './MockGame.module.css'
 
 function MockGame() {
   const [board, setBoard] = useState([])
-  const [gameStatus, setGameStatus] = useState('playing') // playing, won, lost
-  const [mineCount] = useState(10)
+  const [gameStatus, setGameStatus] = useState('playing')
+  const [mineCount, setMineCount] = useState(10) // playing, won, lost
   const [time, setTime] = useState(0)
   const [isFirstClick, setIsFirstClick] = useState(true)
 
