@@ -59,7 +59,7 @@ export default function Minesweeper() {
   const [board, setBoard] = useState(generateBoard());
   const [status, setStatus] = useState("playing");
   const [time, setTime] = useState(0);
-  const [flags, setFlags] = useState(0);
+  const [, setFlags] = useState(0);
 
   useEffect(() => {
     if (status !== "playing") return;
