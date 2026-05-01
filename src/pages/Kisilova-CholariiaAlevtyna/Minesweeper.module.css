@@ -1,0 +1,131 @@
+.gameContainer {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 100 !important; 
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+    background: linear-gradient(135deg, #ffe6f1 0%, #f3e8ff 35%, #e6fff5 70%, #f0fff9 100%) !important;
+}
+
+.game {
+    position: relative !important;
+    width: 90% !important;
+    max-width: 500px !important;
+    background: rgba(255, 255, 255, 0.8) !important; 
+    backdrop-filter: blur(15px) !important; 
+    padding: 30px !important;
+    border-radius: 30px !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.05) !important;
+    border: 1px solid white !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.gameHeader {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
+}
+
+.status {
+    display: flex !important;
+    gap: 10px !important;
+}
+
+.timer, .flags {
+    background: white !important; 
+    padding: 8px 12px !important; 
+    border-radius: 12px !important;
+    font-weight: 800 !important;
+    color: #2c2f3a !important; 
+    display: flex !important;
+    align-items: center !important;
+    font-size: 1rem !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05) !important;
+}
+
+.btnStart {
+    background: #2c2f3a !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
+
+.board {
+    display: grid !important;
+    grid-template-columns: repeat(10, 38px) !important;
+    grid-auto-rows: 38px !important;
+    gap: 5px !important;
+    justify-content: center !important;
+    padding: 10px !important;
+    background: rgba(255,255,255,0.3) !important;
+    border-radius: 15px !important;
+}
+
+.cell {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 800 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    border: 1px solid rgba(0,0,0,0.02) !important;
+    font-size: 1rem !important;
+    appearance: none !important;
+    background: none !important;
+    padding: 0 !important;
+    outline: none !important;
+}
+
+.closed {
+    background: linear-gradient(180deg, #ffffff, #f1f5f9) !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05) !important;
+}
+
+.open {
+    background: rgba(255, 255, 255, 0.5) !important;
+    color: #1e3a8a !important;
+}
+
+.cell[data-number='1'] { color: #2563eb !important; }
+.cell[data-number='2'] { color: #059669 !important; }
+.cell[data-number='3'] { color: #dc2626 !important; }
+
+.modalOverlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 1000 !important;
+}
+
+.modal {
+    background: white !important;
+    padding: 40px !important;
+    border-radius: 25px !important;
+    text-align: center !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2) !important;
+    color: #2c2f3a !important;
+}
+
+.modal h2 { color: #2c2f3a !important; margin-bottom: 10px !important; }
+.modal p { color: #666 !important; margin-bottom: 20px !important; }
