@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './Minesweeper.module.css';
 import Cell from './components/Cell';
 import { createBoard, CELL_STATE, GAME_STATUS } from './utils';
