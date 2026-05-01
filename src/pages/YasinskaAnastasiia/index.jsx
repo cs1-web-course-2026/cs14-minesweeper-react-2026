@@ -160,8 +160,19 @@ export default function YasinskaAnastasiiaGame() {
     if (cell.isMine) {
       setGameStatus("lost");
     }
+if (cell.isMine) {
+  setGameStatus("lost");
+} else {
+  const hasWon = newField.every((row) =>
+    row.every((cell) => cell.isMine || cell.isOpen)
+  );
 
-    setField(newField);
+  if (hasWon) {
+    setGameStatus("won");
+  }
+}
+
+setField(newField);
   }
 
   function toggleFlag(e, r, c) {
