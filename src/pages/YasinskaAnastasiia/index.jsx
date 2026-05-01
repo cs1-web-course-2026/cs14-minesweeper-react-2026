@@ -10,6 +10,7 @@ function createField() {
 
   for (let r = 0; r < ROWS; r++) {
     const row = [];
+
     for (let c = 0; c < COLS; c++) {
       row.push({
         row: r,
@@ -20,11 +21,12 @@ function createField() {
         neighbors: 0,
       });
     }
+
     field.push(row);
   }
 
-  // розставляємо міни
   let placed = 0;
+
   while (placed < MINES) {
     const r = Math.floor(Math.random() * ROWS);
     const c = Math.floor(Math.random() * COLS);
@@ -35,7 +37,6 @@ function createField() {
     }
   }
 
-  // рахуємо сусідів
   const dirs = [-1, 0, 1];
 
   for (let r = 0; r < ROWS; r++) {
@@ -67,6 +68,7 @@ function createField() {
 
   return field;
 }
+
 function RestartButton({ onRestart }) {
   return (
     <button onClick={onRestart} className={styles.button}>
@@ -75,10 +77,14 @@ function RestartButton({ onRestart }) {
   );
 }
 
-function GameStatus({ gameOver }) {
+function GameStatus({ gameStatus }) {
   return (
-    <p className={styles.status}>
-      {gameOver ? "Гру завершено" : "Гра триває..."}
+    <p className={styles.status} role="status" aria-live="polite">
+      {gameStatus === "lost"
+        ? "💣 You lost!"
+        : gameStatus === "won"
+        ? "🎉 You won!"
+        : "Game in progress..."}
     </p>
   );
 }
@@ -118,25 +124,28 @@ function Board({ field, onOpenCell, onToggleFlag }) {
     </div>
   );
 }
+
 export default function YasinskaAnastasiiaGame() {
   const [field, setField] = useState([]);
-  const [gameOver, setGameOver] = useState(false);
+  const [gameStatus, setGameStatus] = useState("playing");
   const [time, setTime] = useState(0);
 
   useEffect(() => {
     setField(createField());
   }, []);
-useEffect(() => {
-  if (gameOver) return;
 
-  const timer = setInterval(() => {
-    setTime((t) => t + 1);
-  }, 1000);
+  useEffect(() => {
+    if (gameStatus !== "playing") return;
 
-  return () => clearInterval(timer);
-}, [gameOver]);
+    const timer = setInterval(() => {
+      setTime((t) => t + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [gameStatus]);
+
   function openCell(r, c) {
-    if (gameOver) return;
+    if (gameStatus !== "playing") return;
 
     const newField = field.map((row) =>
       row.map((cell) => ({ ...cell }))
@@ -149,8 +158,7 @@ useEffect(() => {
     cell.isOpen = true;
 
     if (cell.isMine) {
-      setGameOver(true);
-      alert("💣 Game Over");
+      setGameStatus("lost");
     }
 
     setField(newField);
@@ -158,6 +166,8 @@ useEffect(() => {
 
   function toggleFlag(e, r, c) {
     e.preventDefault();
+
+    if (gameStatus !== "playing") return;
 
     const newField = field.map((row) =>
       row.map((cell) => ({ ...cell }))
@@ -173,24 +183,25 @@ useEffect(() => {
   }
 
   function restart() {
-  setField(createField());
-  setGameOver(false);
-  setTime(0);
-}
+    setField(createField());
+    setGameStatus("playing");
+    setTime(0);
+  }
+
   return (
-  <div className={styles.game}>
-    <h1>Minesweeper</h1>
-    <p className={styles.timer}>⏱ {time}</p>
+    <div className={styles.game}>
+      <h1>Minesweeper</h1>
+      <p className={styles.timer}>⏱ {time}</p>
 
-    <RestartButton onRestart={restart} />
+      <RestartButton onRestart={restart} />
 
-    <GameStatus gameOver={gameOver} />
+      <GameStatus gameStatus={gameStatus} />
 
-    <Board
-      field={field}
-      onOpenCell={openCell}
-      onToggleFlag={toggleFlag}
-    />
-  </div>
-);
+      <Board
+        field={field}
+        onOpenCell={openCell}
+        onToggleFlag={toggleFlag}
+      />
+    </div>
+  );
 }
