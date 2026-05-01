@@ -33,6 +33,15 @@ function Game() {
       status: 'Complete',
     },
     {
+  id: 3,
+  title: "Minesweeper (Yasinska)",
+  description: "My React implementation",
+  author: "Yasinska Anastasiia",
+  link: "/yasinska-anastasiia",
+  difficulty: "Intermediate",
+  status: "In Progress"
+},
+    {
       id: 2,
       title: 'Basic Minesweeper',
       description: 'A simple implementation with basic game mechanics',
