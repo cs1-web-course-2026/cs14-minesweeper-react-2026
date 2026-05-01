@@ -31,7 +31,7 @@ const implementations = [
   {
     id: 2,
     title: "Modern Glass Minesweeper",
-    description: "A sleek, modern take on the classic minesweeper game with a glassmorphism design and responsive layout, with timer, flagging, and win/lose detection.",
+    description: "A sleek, modern layout, with glassmorphism design and responsive layout, with timer, flagging, and win/lose detection.",
     author: "Alevtyna Kisilova-Cholariia",
     link: "/kisilova-cholariia-alevtyna",
     difficulty: "Beginner",
