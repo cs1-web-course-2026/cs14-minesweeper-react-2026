@@ -4,35 +4,13 @@ import Timer from "./components/Timer";
 import GameStatus from "./components/GameStatus";
 import RestartButton from "./components/RestartButton";
 import styles from "./styles/Game.module.css";
-
-const GAME_CONFIG = {
-  ROWS: 10,
-  COLS: 10,
-  MINES_COUNT: 10
-};
-
-const GAME_STATUS = {
-  PROCESS: "process",
-  WIN: "win",
-  LOSE: "lose"
-};
-
-const CELL_TYPE = {
-  EMPTY: "empty",
-  MINE: "mine"
-};
-
-const CELL_STATE = {
-  CLOSED: "closed",
-  OPENED: "opened",
-  FLAGGED: "flagged"
-};
-
-const FACE = {
-  NORMAL: "🙂",
-  WIN: "😎",
-  LOSE: "😵"
-};
+import {
+  GAME_CONFIG,
+  GAME_STATUS,
+  CELL_TYPE,
+  CELL_STATE,
+  FACE
+} from "./constants";
 
 function createCell() {
   return {
