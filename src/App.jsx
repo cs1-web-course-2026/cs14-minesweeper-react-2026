@@ -1,13 +1,23 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import BesedinMaxymMinesweeper from './pages/BesedinMaxym';
-import GamePage from './pages/Game';
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './pages/Home'
+import About from './pages/About'
+import Game from './pages/Game'
+import MockGame from './pages/MockGame'
+import BesedinMaxym from './pages/BesedinMaxym'
 
-export default function App() {
+function App() {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/game" replace />} />
-      <Route path="/game" element={<GamePage />} />
-      <Route path="/besedin-maxym" element={<BesedinMaxymMinesweeper />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="game" element={<Game />} />
+        <Route path="mock-game" element={<MockGame />} />
+        <Route path="besedin-maxym" element={<BesedinMaxym />} />
+      </Route>
     </Routes>
-  );
+  )
 }
+
+export default App
