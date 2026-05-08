@@ -1,7 +1,7 @@
 import { NEIGHBOR_MINE_COLORS } from "../constants";
 import styles from "./Cell.module.css";
 
-export default function Cell({ cell, onClick, onRightClick }) {
+export default function Cell({ cell, row, col, onClick, onRightClick }) {
   const getContent = () => {
     if (!cell.revealed) return cell.flagged ? "🚩" : "";
     if (cell.isMine) return "💣";
@@ -15,6 +15,14 @@ export default function Cell({ cell, onClick, onRightClick }) {
     ) : "";
   };
 
+  const getCellState = () => {
+    if (cell.flagged) return "flagged";
+    if (cell.revealed) return cell.isMine ? "mine" : "revealed";
+    return "hidden";
+  };
+
+  const cellAriaLabel = `Row ${row + 1}, column ${col + 1}, ${getCellState()}`;
+
   const cellClasses = [
     styles.cell,
     cell.revealed ? styles.revealed : "",
@@ -25,15 +33,17 @@ export default function Cell({ cell, onClick, onRightClick }) {
     .join(" ");
 
   return (
-    <div
+    <button
+      type="button"
       className={cellClasses}
       onClick={onClick}
       onContextMenu={(event) => {
         event.preventDefault();
         onRightClick();
       }}
+      aria-label={cellAriaLabel}
     >
       {getContent()}
-    </div>
+    </button>
   );
 }

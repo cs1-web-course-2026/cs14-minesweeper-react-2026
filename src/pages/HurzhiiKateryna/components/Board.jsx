@@ -10,6 +10,8 @@ export default function Board({ board, onCellClick, onCellRightClick }) {
             <Cell
               key={`${rowIndex}-${colIndex}`}
               cell={cell}
+              row={rowIndex}
+              col={colIndex}
               onClick={() => onCellClick(rowIndex, colIndex)}
               onRightClick={() => onCellRightClick(rowIndex, colIndex)}
             />
