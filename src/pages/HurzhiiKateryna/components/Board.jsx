@@ -1,16 +1,17 @@
 import Cell from "./Cell";
+import styles from "./Board.module.css";
 
 export default function Board({ board, onCellClick, onCellRightClick }) {
   return (
-    <div style={{ display: "inline-block" }}>
-      {board.map((row, x) => (
-        <div key={x} style={{ display: "flex" }}>
-          {row.map((cell, y) => (
+    <div className={styles.board}>
+      {board.map((row, rowIndex) => (
+        <div key={rowIndex} className={styles.boardRow}>
+          {row.map((cell, colIndex) => (
             <Cell
-              key={y}
+              key={`${rowIndex}-${colIndex}`}
               cell={cell}
-              onClick={() => onCellClick(x, y)}
-              onRightClick={() => onCellRightClick(x, y)}
+              onClick={() => onCellClick(rowIndex, colIndex)}
+              onRightClick={() => onCellRightClick(rowIndex, colIndex)}
             />
           ))}
         </div>

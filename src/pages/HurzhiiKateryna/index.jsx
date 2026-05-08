@@ -1,116 +1,71 @@
 import { useEffect, useState } from "react";
 import Board from "./components/Board";
-import Timer from "./components/Timer";
 import GameStatus from "./components/GameStatus";
 import RestartButton from "./components/RestartButton";
-
-const ROWS = 10;
-const COLS = 10;
-const MINES = 15;
-
-function createCell() {
-  return {
-    isMine: false,
-    revealed: false,
-    flagged: false,
-    neighborMines: 0,
-  };
-}
-
-function generateBoard() {
-  const board = Array.from({ length: ROWS }, () =>
-    Array.from({ length: COLS }, () => createCell())
-  );
-
-  let mines = 0;
-  while (mines < MINES) {
-    const r = Math.floor(Math.random() * ROWS);
-    const c = Math.floor(Math.random() * COLS);
-
-    if (!board[r][c].isMine) {
-      board[r][c].isMine = true;
-      mines++;
-    }
-  }
-
-  // Calculate neighbor mines for each cell
-  for (let x = 0; x < ROWS; x++) {
-    for (let y = 0; y < COLS; y++) {
-      if (board[x][y].isMine) continue;
-      let count = 0;
-      for (let dx = -1; dx <= 1; dx++) {
-        for (let dy = -1; dy <= 1; dy++) {
-          if (dx === 0 && dy === 0) continue;
-          const nx = x + dx;
-          const ny = y + dy;
-          if (nx >= 0 && nx < ROWS && ny >= 0 && ny < COLS) {
-            if (board[nx][ny].isMine) count++;
-          }
-        }
-      }
-      board[x][y].neighborMines = count;
-    }
-  }
-
-  return board;
-}
+import {
+  MINES,
+  GAME_STATUS,
+} from "./constants";
+import {
+  generateBoard,
+  revealCellRecursive,
+  checkWinCondition,
+  revealAllMines,
+  countFlagsPlaced,
+} from "./minesweeperLogic";
+import styles from "./HurzhiiKateryna.module.css";
 
 export default function Minesweeper() {
   const [board, setBoard] = useState(generateBoard());
-  const [status, setStatus] = useState("playing");
+  const [status, setStatus] = useState(GAME_STATUS.PLAYING);
   const [time, setTime] = useState(0);
-  const [, setFlags] = useState(0);
+  const [timerStarted, setTimerStarted] = useState(false);
 
   useEffect(() => {
-    if (status !== "playing") return;
+    if (status !== GAME_STATUS.PLAYING || !timerStarted) return;
 
     const timer = setInterval(() => {
-      setTime((t) => t + 1);
+      setTime((time) => time + 1);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [status]);
+  }, [status, timerStarted]);
 
-  const openCell = (x, y) => {
-    if (status !== "playing") return;
+  const openCell = (row, col) => {
+    if (status !== GAME_STATUS.PLAYING) return;
 
-    const newBoard = board.map(row =>
-      row.map(cell => ({ ...cell }))
-    );
+    if (!timerStarted) {
+      setTimerStarted(true);
+    }
 
-    const revealCell = (row, col) => {
-      if (row < 0 || row >= ROWS || col < 0 || col >= COLS) return;
-      const cell = newBoard[row][col];
-      if (cell.revealed || cell.flagged) return;
-      
-      cell.revealed = true;
-      
-      if (cell.isMine) {
-        setStatus("lost");
-        return;
-      }
+    const newBoard = board.map((boardRow) => boardRow.map((cell) => ({ ...cell })));
 
-      // If empty cell (0 neighbors), auto-reveal all adjacent cells
-      if (cell.neighborMines === 0) {
-        for (let dx = -1; dx <= 1; dx++) {
-          for (let dy = -1; dy <= 1; dy++) {
-            if (dx === 0 && dy === 0) continue;
-            revealCell(row + dx, col + dy);
-          }
-        }
-      }
-    };
+    revealCellRecursive(newBoard, row, col);
 
-    revealCell(x, y);
+    // Check if clicked on mine
+    if (newBoard[row][col].isMine) {
+      const finalBoard = revealAllMines(newBoard);
+      setBoard(finalBoard);
+      setStatus(GAME_STATUS.LOST);
+      return;
+    }
+
     setBoard(newBoard);
+
+    // Check win condition
+    if (checkWinCondition(newBoard)) {
+      setStatus(GAME_STATUS.WON);
+    }
   };
 
   const toggleFlag = (x, y) => {
-    if (status !== "playing") return;
+    if (status !== GAME_STATUS.PLAYING) return;
 
-    const newBoard = board.map(row =>
-      row.map(cell => ({ ...cell }))
-    );
+    if (!timerStarted) {
+      setTimerStarted(true);
+    }
+
+    const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
 
     const cell = newBoard[x][y];
 
@@ -118,39 +73,56 @@ export default function Minesweeper() {
 
     cell.flagged = !cell.flagged;
 
-    setFlags(f => cell.flagged ? f + 1 : f - 1);
-
     setBoard(newBoard);
   };
 
   const restart = () => {
     setBoard(generateBoard());
-    setStatus("playing");
+    setStatus(GAME_STATUS.PLAYING);
     setTime(0);
-    setFlags(0);
+    setTimerStarted(false);
   };
 
-  return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Minesweeper</h1>
+  const flagsPlaced = countFlagsPlaced(board);
+  const remainingMines = MINES - flagsPlaced;
 
-      <Timer time={time} />
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Minesweeper</h1>
+
+      <div className={styles.statusSection}>
+        <div className={styles.statusItem}>
+          ⏱ Час: <span>{time}s</span>
+        </div>
+        <div className={styles.mineCounter}>
+          💣 {remainingMines} mine(s) remaining
+        </div>
+      </div>
+
       <GameStatus status={status} />
 
-      <Board
-        board={board}
-        onCellClick={openCell}
-        onCellRightClick={toggleFlag}
-      />
+      <div className={styles.boardContainer}>
+        <Board
+          board={board}
+          onCellClick={openCell}
+          onCellRightClick={toggleFlag}
+        />
+      </div>
 
-      <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
+      <div className={styles.controlsContainer}>
         <RestartButton onRestart={restart} />
       </div>
 
-      <div style={{ marginTop: 24, textAlign: "center", fontSize: 16, color: '#888' }}>
-        <div>Left mouse button – open cell</div>
-        <div>Right mouse button – place flag</div>
-        <div>Restart button – start a new game</div>
+      <div className={styles.instructionsContainer}>
+        <div className={styles.instructionItem}>
+          Left mouse button – open cell
+        </div>
+        <div className={styles.instructionItem}>
+          Right mouse button – place flag
+        </div>
+        <div className={styles.instructionItem}>
+          Restart button – start a new game
+        </div>
       </div>
     </div>
   );

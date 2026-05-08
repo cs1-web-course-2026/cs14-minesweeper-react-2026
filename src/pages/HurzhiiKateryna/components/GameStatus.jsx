@@ -1,5 +1,24 @@
+import { GAME_STATUS } from "../constants";
+import styles from "./GameStatus.module.css";
+
 export default function GameStatus({ status }) {
-  if (status === "playing") return <h3>Гра триває</h3>;
-  if (status === "won") return <h3>🎉 Перемога</h3>;
-  return <h3>💣 Поразка</h3>;
+  let statusText = "";
+  let statusClass = "";
+
+  if (status === GAME_STATUS.PLAYING) {
+    statusText = "🎮 Game in Progress";
+    statusClass = styles.playing;
+  } else if (status === GAME_STATUS.WON) {
+    statusText = "🎉 Victory!";
+    statusClass = styles.won;
+  } else if (status === GAME_STATUS.LOST) {
+    statusText = "💣 Defeat!";
+    statusClass = styles.lost;
+  }
+
+  return (
+    <h2 role="status" aria-live="polite" className={`${styles.status} ${statusClass}`}>
+      {statusText}
+    </h2>
+  );
 }
