@@ -52,23 +52,31 @@ function Game() {
     },
     {
       id: 4,
-      title: 'Minesweeper with Themes',
-      description: 'Multiple visual themes and sound effects',
-      author: 'Author name',
-      link: '#',
-      difficulty: 'Advanced',
-      status: 'Planning',
+      title: "Minesweeper with Themes",
+      description: "Multiple visual themes and sound effects",
+      author: "Author name",
+      link: "#",
+      difficulty: "Advanced",
+      status: "Planning"
     },
     {
       id: 5,
-      title: 'Minesweeper — Besedin Maxym',
-      description:
-        'React implementation of Minesweeper with component structure, timer, flags, win and lose detection.',
-      author: 'Besedin Maxym',
-      link: '/besedin-maxym',
-      difficulty: 'Beginner',
-      status: 'Complete',
+      title: "Mokh Nazar's Minesweeper",
+      description: "A unique take on minesweeper with custom mechanics and design",
+      author: "Mokh Nazar",
+      link: "/mokh-nazar",
+      difficulty: "Advanced",
+      status: "Complete"
     },
+    {
+      id: 6,
+      title: "Minesweeper — Besedin Maxym",
+      description: "React implementation of Minesweeper with component structure, timer, flags, win and lose detection.",
+      author: "Besedin Maxym",
+      link: "/besedin-maxym",
+      difficulty: "Beginner",
+      status: "Complete"
+    }
   ]
 
   return (
