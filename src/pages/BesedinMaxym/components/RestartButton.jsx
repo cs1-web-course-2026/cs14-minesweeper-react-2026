@@ -9,7 +9,13 @@ const faceByStatus = {
 
 export default function RestartButton({ status, onRestart }) {
   return (
-    <button className={styles.startButton} onClick={onRestart} type="button" title="Нова гра">
+    <button
+      className={styles.startButton}
+      onClick={onRestart}
+      type="button"
+      title="Нова гра"
+      aria-label="Почати нову гру"
+    >
       <span className={styles.face}>{faceByStatus[status] ?? '💀'}</span>
     </button>
   );

@@ -34,7 +34,7 @@ export default function Cell({ cell, row, col, onOpen, onToggleFlag }) {
 
   return (
     <button
-      aria-label={`Клітинка ${row + 1}:${col + 1}`}
+      aria-label={`Клітинка ${row + 1}:${col + 1}, ${cell.state === 'flagged' ? 'позначена прапорцем' : cell.state === 'opened' ? 'відкрита' : 'закрита'}`}
       className={getCellClassName(cell)}
       onClick={() => onOpen(row, col)}
       onContextMenu={(event) => {

@@ -45,8 +45,8 @@ export default function BesedinMaxymMinesweeper() {
       return;
     }
 
-    setIsTimerStarted(true);
-    setGameState((currentState) => openCell(currentState, row, col));
+    setIsTimerStarted(true)
+    setGameState((currentState) => openCell(currentState, row, col))
   };
 
   const handleToggleFlag = (row, col) => {

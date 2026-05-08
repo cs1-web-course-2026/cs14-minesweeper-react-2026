@@ -3,7 +3,7 @@ import styles from '../Minesweeper.module.css';
 
 export default function Board({ grid, onOpen, onToggleFlag }) {
   return (
-    <div className={styles.fieldGrid}>
+    <div className={styles.fieldGrid} role="grid" aria-label="Minesweeper board">
       {grid.map((row, rowIndex) => (
         row.map((cell, colIndex) => (
           <Cell
