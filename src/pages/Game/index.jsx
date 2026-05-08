@@ -60,14 +60,13 @@ function Game() {
     },
     {
       id: 5,
-      title: 'Minesweeper — Besedin Maxym',
-      description:
-        'React implementation of Minesweeper with component structure, timer, flags, win and lose detection.',
-      author: 'Besedin Maxym',
-      link: '/besedin-maxym',
-      difficulty: 'Beginner',
-      status: 'Complete',
-    },
+      title: "Minesweeper — Besedin Maxym",
+      description: "React implementation of Minesweeper with component structure, timer, flags, win and lose detection.",
+      author: "Besedin Maxym",
+      link: "/besedin-maxym",
+      difficulty: "Beginner",
+      status: "Complete"
+    }
   ]
 
   return (

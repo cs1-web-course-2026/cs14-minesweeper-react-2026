@@ -5,7 +5,6 @@ import About from './pages/About'
 import Game from './pages/Game'
 import MockGame from './pages/MockGame'
 import BesedinMaxym from './pages/BesedinMaxym'
-import MokhNazarGame from './pages/MokhNazar';
 
 function App() {
   return (
@@ -16,7 +15,6 @@ function App() {
         <Route path="game" element={<Game />} />
         <Route path="mock-game" element={<MockGame />} />
         <Route path="besedin-maxym" element={<BesedinMaxym />} />
-        <Route path="mokh-nazar" element={<MokhNazarGame />} />
       </Route>
     </Routes>
   )
