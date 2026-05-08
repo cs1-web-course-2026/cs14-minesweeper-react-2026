@@ -24,6 +24,15 @@ function Game() {
   const implementations = [
     {
       id: 1,
+      title: "Minesweeper — PolishchukVlad",
+      description: "React migration of Minesweeper: компонентна архітектура (Board, Cell, HUD), чиста ігрова логіка в utils, CSS Modules з retro-terminal стилем, таймер, прапорці, flood-fill, win/lose.",
+      author: "Polishchuk Vlad",
+      link: "/polishchuk-vlad",
+      difficulty: "Intermediate",
+      status: "Complete"
+    },
+    {
+      id: 2,
       title: "Mock Minesweeper Game",
       description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
       author: "Example Implementation",
