@@ -57,6 +57,15 @@ function Game() {
       link: "#",
       difficulty: "Advanced",
       status: "Planning"
+    },
+    {
+      id: 5,
+      title: "Mokh Nazar's Minesweeper",
+      description: "A unique take on minesweeper with custom mechanics and design",
+      author: "Mokh Nazar",
+      link: "/mokh-nazar",
+      difficulty: "Advanced",
+      status: "Complete"
     }
   ]
 
