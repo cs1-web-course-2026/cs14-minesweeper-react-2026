@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Game from './pages/Game'
 import Minesweeper from './pages/Kisilova-CholariiaAlevtyna/Minesweeper';
+import MokhNazarGame from './pages/MokhNazar';
 
 function App() {
   return (
