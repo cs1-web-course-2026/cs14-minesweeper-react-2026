@@ -11,13 +11,18 @@ const Cell = React.memo(({ r, c, cell, onOpen, onFlag }) => {
   } ${cell.state === 'open' && cell.adjacentMines ? styles[`number-${cell.adjacentMines}`] : ''}`;
 
   return (
-    <div 
-      className={className}
-      onClick={() => onOpen(r, c)}
-      onContextMenu={(e) => { e.preventDefault(); onFlag(r, c); }}
-    >
-      {content}
-    </div>
+<button
+  type="button"
+  className={className}
+  aria-label={`Row ${row + 1}, column ${col + 1}, ${cell.state}`}
+  onClick={() => onOpen(row, col)}
+  onContextMenu={(event) => {
+    event.preventDefault();
+    onFlag(row, col);
+  }}
+>
+  {content}
+</button>
   );
 });
 
