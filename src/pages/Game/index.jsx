@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Game.module.css';
 import { implementations } from './data';
@@ -22,113 +23,45 @@ const CARD_STATUS_CLASS = {
 
 const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Boolean).join(' ');
 
+const isInternalLink = (link) => link.startsWith('/');
+
 export default function Game() {
-  const isInternalLink = (link) => link.startsWith('/');
-function Game() {
-  // Add your implementations here by editing this array
-  const implementations = [
-    {
-      id: 1,
-      title: "Mock Minesweeper Game",
-      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
-      author: "Example Implementation",
-      link: "/mock-game",
-      difficulty: "Beginner",
-      status: "Complete"
-    },
-    {
-      id: 2,
-      title: "Basic Minesweeper",
-      description: "A simple implementation with basic game mechanics",
-      author: "Author Name",
-      link: "#",
-      difficulty: "Beginner",
-      status: "Complete"
-    },
-    {
-      id: 3,
-      title: "Advanced Minesweeper",
-      description: "Features timer, high scores, and custom difficulty",
-      author: "Author name",
-      link: "#",
-      difficulty: "Intermediate",
-      status: "In Progress"
-    },
-    {
-      id: 4,
-      title: "Minesweeper with Themes",
-      description: "Multiple visual themes and sound effects",
-      author: "Author name",
-      link: "#",
-      difficulty: "Advanced",
-      status: "Planning"
-    },
-    {
-      id: 5,
-      title: "Mokh Nazar's Minesweeper",
-      description: "A unique take on minesweeper with custom mechanics and design",
-      author: "Mokh Nazar",
-      link: "/mokh-nazar",
-      difficulty: "Advanced",
-      status: "Complete"
-    }
-  ]
-
   return (
-    <div className={styles.gameContainer}>
-      <div className={styles.gameHeader}>
-        <h1>Student Implementations</h1>
-        <p>Browse student minesweeper implementations</p>
-        <div className={styles.instructions}>
-          <p><strong>To add implementations:</strong> Edit the data.js file</p>
-        </div>
-      </div>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Minesweeper Implementations</h1>
+        <p className={styles.subtitle}>Explore different versions of the classic game</p>
+      </header>
 
-      <div className={styles.implementationsList}>
+      <div className={styles.grid}>
         {implementations.map((impl) => (
-          <div
-            key={impl.id}
-            className={getBadgeClass(styles.implementationCard, CARD_STATUS_CLASS[impl.status])}
-          >
+          <div key={impl.id} className={getBadgeClass(styles.card, CARD_STATUS_CLASS[impl.status])}>
             <div className={styles.cardHeader}>
-              <h3>{impl.title}</h3>
-              <div className={styles.badges}>
-                <span className={getBadgeClass(styles.badge, STATUS_CLASS[impl.status])}>
-                  {impl.status}
-                </span>
-                <span className={getBadgeClass(styles.badge, DIFFICULTY_CLASS[impl.difficulty])}>
-                  {impl.difficulty}
-                </span>
-              </div>
+              <h2 className={styles.cardTitle}>{impl.title}</h2>
+              <span className={getBadgeClass(styles.badge, STATUS_CLASS[impl.status])}>
+                {impl.status}
+              </span>
             </div>
-            <p className={styles.author}>by {impl.author}</p>
+            
             <p className={styles.description}>{impl.description}</p>
-            <div className={styles.cardActions}>
-              {isInternalLink(impl.link) ? (
-                <Link to={impl.link} className={styles.linkBtn}>
-                  View Implementation →
-                </Link>
-              ) : (
-                <a
-                  href={impl.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.linkBtn}
-                >
-                  View Implementation →
-                </a>
-              )}
+            
+            <div className={styles.meta}>
+              <span className={getBadgeClass(styles.difficulty, DIFFICULTY_CLASS[impl.difficulty])}>
+                {impl.difficulty}
+              </span>
+              <span className={styles.author}>by {impl.author}</span>
             </div>
+
+            {isInternalLink(impl.link) ? (
+              <Link to={impl.link} className={styles.button}>Play Now</Link>
+            ) : (
+              <a href={impl.link} target="_blank" rel="noopener noreferrer" className={styles.button}>
+                View on GitHub
+              </a>
+            )}
           </div>
         ))}
       </div>
-
-      {implementations.length === 0 && (
-        <div className={styles.emptyState}>
-          <h2>No implementations yet</h2>
-          <p>Add implementations by editing the data file</p>
-        </div>
-      )}
     </div>
   );
 }
