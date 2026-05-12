@@ -9,6 +9,8 @@ export default function Board({ field, rows, cols, status, onOpen, onToggleFlag 
       className={styles.board}
       style={{ '--cols': cols, '--rows': rows }}
       data-status={status}
+      role="grid"
+      aria-label="Minesweeper board"
     >
       {field.map((row, r) =>
         row.map((cell, c) => (
