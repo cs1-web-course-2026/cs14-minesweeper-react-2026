@@ -1,18 +1,25 @@
-import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './pages/Home'
+import About from './pages/About'
+import Game from './pages/Game'
+import MockGame from './pages/MockGame'
+import KvitkaAlinaGame from "./pages/KvitkaAlina";
+import PolivanovDanyloGame from "./pages/PolivanovDanylo";
 
-import GameIndexPage, { implementations } from './pages/Game/index.jsx';
-
-export default function App() {
+function App() {
   return (
     <Routes>
-      <Route path="/" element={<GameIndexPage />} />
-
-      {implementations.map((impl) => (
-        <Route key={impl.id} path={impl.path} element={impl.element} />
-      ))}
-
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="game" element={<Game />} />
+        <Route path="mock-game" element={<MockGame />} />
+        <Route path="kvitka-alina" element={<KvitkaAlinaGame />} />
+        <Route path="polivanov-danylo" element={<PolivanovDanyloGame />} />
+      </Route>
     </Routes>
-  );
+  )
 }
+
+export default App
