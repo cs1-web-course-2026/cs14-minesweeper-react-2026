@@ -66,6 +66,16 @@ function Game() {
       link: "/mokh-nazar",
       difficulty: "Advanced",
       status: "Complete"
+    },
+    
+    { 
+     id: 6,
+     title: "Bilotserkovets Danylo's Minesweeper",
+     description: "A React implementation of Minesweeper with component structure, timer, flagging, recursive opening, and win/lose detection.",
+     author: "Bilotserkovets Danylo",
+     link: "/bilotserkovets-danylo",
+     difficulty: "Intermediate",
+     status: "Complete"    
     }
   ]
 
