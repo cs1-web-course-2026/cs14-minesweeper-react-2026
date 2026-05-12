@@ -12,13 +12,13 @@ export default function Board({ field, rows, cols, status, onOpen, onToggleFlag 
       role="grid"
       aria-label="Minesweeper board"
     >
-      {field.map((row, r) =>
-        row.map((cell, c) => (
+      {field.map((boardRow, rowIndex) =>
+        boardRow.map((cell, colIndex) => (
           <Cell
-            key={`${r}-${c}`}
+            key={`${rowIndex}-${colIndex}`}
             cell={cell}
-            row={r}
-            col={c}
+            row={rowIndex}
+            col={colIndex}
             onOpen={onOpen}
             onToggleFlag={onToggleFlag}
           />

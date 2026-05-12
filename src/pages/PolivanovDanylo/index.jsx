@@ -5,7 +5,7 @@ import styles from './minesweeper.module.css';
 import GameHeader from './ui/GameHeader.jsx';
 import Board from './ui/Board.jsx';
 
-import { createNewGame, getHeaderView, openCell, tick, toggleFlag } from './logic.js';
+import { createNewGame, getHeaderView, openCell, tick, toggleFlag, GameStatus } from './logic.js';
 
 const DEFAULT_CONFIG = { rows: 10, cols: 10, minesCount: 15 };
 
@@ -34,7 +34,7 @@ export default function PolivanovDanyloGame() {
   const header = useMemo(() => getHeaderView(state), [state]);
 
   useEffect(() => {
-    if (state.status !== 'process') return;
+    if (state.status !== GameStatus.PROCESS) return;
 
     const id = setInterval(() => {
       dispatch({ type: 'TICK' });

@@ -30,10 +30,10 @@ function countNeighbourMines(field, rows, cols) {
     for (let col = 0; col < cols; col++) {
       if (field[row][col].type !== CellType.EMPTY) continue;
       let count = 0;
-      for (const [dr, dc] of neighbourDirections) {
-        const nr = row + dr;
-        const nc = col + dc;
-        if (isInsideField(nr, nc, rows, cols) && field[nr][nc].type === CellType.MINE) {
+      for (const [directionalRow, directionalCol] of neighbourDirections) {
+        const neighbourRow = row + directionalRow;
+        const neighbourCol = col + directionalCol;
+        if (isInsideField(neighbourRow, neighbourCol, rows, cols) && field[neighbourRow][neighbourCol].type === CellType.MINE) {
           count++;
         }
       }
@@ -47,10 +47,10 @@ function generateField(rows, cols, minesCount) {
 
   let placedMines = 0;
   while (placedMines < minesCount) {
-    const r = Math.floor(Math.random() * rows);
-    const c = Math.floor(Math.random() * cols);
-    if (field[r][c].type === CellType.EMPTY) {
-      field[r][c].type = CellType.MINE;
+    const row = Math.floor(Math.random() * rows);
+    const col = Math.floor(Math.random() * cols);
+    if (field[row][col].type === CellType.EMPTY) {
+      field[row][col].type = CellType.MINE;
       placedMines++;
     }
   }
@@ -85,8 +85,8 @@ function openRecursive(field, startRow, startCol, rows, cols) {
     cell.state = CellState.OPENED;
 
     if (cell.neighborMines === 0) {
-      for (const [dr, dc] of neighbourDirections) {
-        stack.push([row + dr, col + dc]);
+      for (const [directionalRow, directionalCol] of neighbourDirections) {
+        stack.push([row + directionalRow, col + directionalCol]);
       }
     }
   }

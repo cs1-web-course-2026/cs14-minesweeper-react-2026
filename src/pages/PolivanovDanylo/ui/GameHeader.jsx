@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 
 import styles from './gameHeader.module.css';
 
+import { GameStatus } from '../logic.js';
+
 function pad2(value) {
   return String(value).padStart(2, '0');
 }
@@ -12,10 +14,8 @@ function pad3(value) {
 
 export default function GameHeader({ flagsRemaining, time, status, onRestart }) {
   const { emoji, label } = useMemo(() => {
-    const isWin = status === 'win';
-    const isLose = status === 'lose';
-    if (isWin) return { emoji: '😎', label: 'Перемога. Нова гра' };
-    if (isLose) return { emoji: '💥', label: 'Поразка. Нова гра' };
+    if (status === GameStatus.WIN) return { emoji: '😎', label: 'Перемога. Нова гра' };
+    if (status === GameStatus.LOSE) return { emoji: '💥', label: 'Поразка. Нова гра' };
     return { emoji: '🙂', label: 'Старт / Рестарт' };
   }, [status]);
 

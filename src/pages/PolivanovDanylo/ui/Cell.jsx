@@ -2,11 +2,13 @@ import React, { useMemo } from 'react';
 
 import styles from './cell.module.css';
 
+import { CellState, CellType } from '../logic.js';
+
 export default function Cell({ cell, row, col, onOpen, onToggleFlag }) {
   const view = useMemo(() => {
-    const isOpened = cell.state === 'opened';
-    const isFlagged = cell.state === 'flagged';
-    const isMineOpened = isOpened && cell.type === 'mine';
+    const isOpened = cell.state === CellState.OPENED;
+    const isFlagged = cell.state === CellState.FLAGGED;
+    const isMineOpened = isOpened && cell.type === CellType.MINE;
 
     if (isFlagged) {
       return { text: '🚩', numberClass: null, isMineOpened };
@@ -16,11 +18,11 @@ export default function Cell({ cell, row, col, onOpen, onToggleFlag }) {
       return { text: '💣', numberClass: null, isMineOpened };
     }
 
-    if (isOpened && cell.type === 'empty') {
-      const n = cell.neighborMines;
+    if (isOpened && cell.type === CellType.EMPTY) {
+      const neighbourCount = cell.neighborMines;
       return {
-        text: n || '',
-        numberClass: n ? styles[`number${n}`] : null,
+        text: neighbourCount || '',
+        numberClass: neighbourCount ? styles[`number${neighbourCount}`] : null,
         isMineOpened,
       };
     }
@@ -30,22 +32,25 @@ export default function Cell({ cell, row, col, onOpen, onToggleFlag }) {
 
   const className = [
     styles.cell,
-    cell.state === 'closed' ? styles.closed : null,
-    cell.state === 'opened' ? styles.opened : null,
-    cell.state === 'flagged' ? styles.flagged : null,
+    cell.state === CellState.CLOSED ? styles.closed : null,
+    cell.state === CellState.OPENED ? styles.opened : null,
+    cell.state === CellState.FLAGGED ? styles.flagged : null,
     view.isMineOpened ? styles.mine : null,
     view.numberClass,
   ]
     .filter(Boolean)
     .join(' ');
 
+  const ariaLabel = `Row ${row + 1}, column ${col + 1}, ${cell.state}${view.text ? `, ${view.text}` : ''}`;
+
   return (
     <button
       type="button"
       className={className}
+      aria-label={ariaLabel}
       onClick={() => onOpen(row, col)}
-      onContextMenu={(e) => {
-        e.preventDefault();
+      onContextMenu={(event) => {
+        event.preventDefault();
         onToggleFlag(row, col);
       }}
     >
