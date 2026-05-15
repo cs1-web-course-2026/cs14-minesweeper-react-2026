@@ -90,18 +90,6 @@ export const useGameLogic = () => {
     }
   }
 }, [board, status]);
-          }
-        }
-      };
-
-      reveal(r, c);
-
-      const closedNonMines = newBoard.flat().filter(c => !c.hasMine && c.state !== CELL_STATE.OPEN).length;
-      if (closedNonMines === 0 && status !== GAME_STATUS.LOST) setStatus(GAME_STATUS.WON);
-
-      return newBoard;
-    });
-  }, [status]);
 
   const toggleFlag = useCallback((r, c) => {
     if (status !== GAME_STATUS.PLAYING) return;

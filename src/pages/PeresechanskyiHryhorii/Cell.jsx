@@ -14,11 +14,11 @@ const Cell = React.memo(({ r, c, cell, onOpen, onFlag }) => {
 <button
   type="button"
   className={className}
-  aria-label={`Row ${row + 1}, column ${col + 1}, ${cell.state}`}
-  onClick={() => onOpen(row, col)}
+  aria-label={`Row ${r + 1}, column ${c + 1}, ${cell.state}`}
+  onClick={() => onOpen(r, c)}
   onContextMenu={(event) => {
     event.preventDefault();
-    onFlag(row, col);
+    onFlag(r, c);
   }}
 >
   {content}
