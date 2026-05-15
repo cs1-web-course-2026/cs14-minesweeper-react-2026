@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Game.module.css';
-import { implementations } from './data';
+import { implementations as importedImplementations } from './data';
 
 const STATUS_CLASS = {
   'Complete': styles.statusComplete,
@@ -22,10 +22,23 @@ const CARD_STATUS_CLASS = {
 };
 
 const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Boolean).join(' ');
-
 const isInternalLink = (link) => link.startsWith('/');
 
 export default function Game() {
+  // Add your implementations here by editing this array
+  const implementations = [
+    {
+      id: 1,
+      title: "Mock Minesweeper Game",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
+      author: "Example Implementation",
+      link: "/mock-game",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    // ... rest of your implementations array
+  ];
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
