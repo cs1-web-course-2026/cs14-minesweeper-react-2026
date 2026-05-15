@@ -3,6 +3,8 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
 import Game from './pages/Game'
+import Minesweeper from './pages/Kisilova-CholariiaAlevtyna/Minesweeper';
+import MokhNazarGame from './pages/MokhNazar';
 import MockGame from './pages/MockGame'
 import PeresechanskyiGame from './pages/PeresechanskyiHryhorii'
 import KvitkaAlinaGame from "./pages/KvitkaAlina";
@@ -16,6 +18,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="game" element={<Game />} />
+        <Route path="kisilova-cholariia-alevtyna" element={<Minesweeper />} />
         <Route path="mock-game" element={<MockGame />} />
         <Route path="peresechanskyi-hryhorii" element={<PeresechanskyiGame />} />
         <Route path="hurzhii-kateryna" element={<HurzhiiKateryna />} />
