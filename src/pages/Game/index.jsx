@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Game.module.css';
 import { implementations as importedImplementations } from './data';
@@ -25,7 +26,75 @@ const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Bo
 const isInternalLink = (link) => link.startsWith('/');
 
 export default function Game() {
+  // Use implementations imported from ./data
   const implementations = importedImplementations;
+function Game() {
+  // Add your implementations here by editing this array
+  const implementations = [
+    {
+      id: 1,
+      title: "Mock Minesweeper Game",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
+      author: "Example Implementation",
+      link: "/mock-game",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    {
+      id: 2,
+      title: "Basic Minesweeper",
+      description: "A simple implementation with basic game mechanics",
+      author: "Author Name",
+      link: "#",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    {
+      id: 3,
+      title: "Advanced Minesweeper",
+      description: "Features timer, high scores, and custom difficulty",
+      author: "Author name",
+      link: "#",
+      difficulty: "Intermediate",
+      status: "In Progress"
+    },
+    {
+      id: 4,
+      title: "Minesweeper with Themes",
+      description: "Multiple visual themes and sound effects",
+      author: "Author name",
+      link: "#",
+      difficulty: "Advanced",
+      status: "Planning"
+    },
+    {
+      id: 5,
+      title: "Mokh Nazar's Minesweeper",
+      description: "A unique take on minesweeper with custom mechanics and design",
+      author: "Mokh Nazar",
+      link: "/mokh-nazar",
+      difficulty: "Advanced",
+      status: "Complete"
+    },
+    {
+      id: 6,
+      title: "Minesweeper",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
+      author: "Hurzhii Kateryna",
+      link: "/hurzhii-kateryna",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    {
+      id: 7,
+      title: "Polivanov Danylo's Minesweeper",
+      description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
+      author: "Polivanov Danylo",
+      link: "/polivanov-danylo",
+      difficulty: "Intermediate",
+      status: "Complete"
+    }
+  ]
 
   return (
     <div className={styles.container}>
