@@ -3,11 +3,11 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
 import Game from './pages/Game'
-import Minesweeper from './pages/Kisilova-CholariiaAlevtyna/Minesweeper'
-import MokhNazarGame from './pages/MokhNazar'
+import Minesweeper from './pages/Kisilova-CholariiaAlevtyna/Minesweeper';
+import MokhNazarGame from './pages/MokhNazar';
 import MockGame from './pages/MockGame'
-import KvitkaAlinaGame from './pages/KvitkaAlina'
-import PolivanovDanyloGame from './pages/PolivanovDanylo'
+import KvitkaAlinaGame from "./pages/KvitkaAlina";
+import PolivanovDanyloGame from "./pages/PolivanovDanylo";
 import HurzhiiKateryna from './pages/HurzhiiKateryna'
 
 function App() {
