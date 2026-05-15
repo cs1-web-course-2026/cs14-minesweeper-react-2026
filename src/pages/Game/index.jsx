@@ -22,6 +22,64 @@ const CARD_STATUS_CLASS = {
 };
 
 const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Boolean).join(' ');
+function Game() {
+  // Add your implementations here by editing this array
+  const implementations = [
+    {
+      id: 1,
+      title: "Mock Minesweeper Game",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
+      author: "Example Implementation",
+      link: "/mock-game",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    {
+      id: 2,
+      title: "Basic Minesweeper",
+      description: "A simple implementation with basic game mechanics",
+      author: "Author Name",
+      link: "#",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    {
+      id: 3,
+      title: "Advanced Minesweeper",
+      description: "Features timer, high scores, and custom difficulty",
+      author: "Author name",
+      link: "#",
+      difficulty: "Intermediate",
+      status: "In Progress"
+    },
+    {
+      id: 4,
+      title: "Minesweeper with Themes",
+      description: "Multiple visual themes and sound effects",
+      author: "Author name",
+      link: "#",
+      difficulty: "Advanced",
+      status: "Planning"
+    },
+    {
+      id: 5,
+      title: "Mokh Nazar's Minesweeper",
+      description: "A unique take on minesweeper with custom mechanics and design",
+      author: "Mokh Nazar",
+      link: "/mokh-nazar",
+      difficulty: "Advanced",
+      status: "Complete"
+    },
+    {
+      id: 6,
+      title: "Minesweeper",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
+      author: "Hurzhii Kateryna",
+      link: "/hurzhii-kateryna",
+      difficulty: "Beginner",
+      status: "Complete"
+    }
+  ]
 
 const isInternalLink = (link) => link.startsWith('/');
 
