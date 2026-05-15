@@ -26,19 +26,8 @@ const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Bo
 const isInternalLink = (link) => link.startsWith('/');
 
 export default function Game() {
-  // Add your implementations here by editing this array
-  const implementations = [
-    {
-      id: 1,
-      title: "Mock Minesweeper Game",
-      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
-      author: "Example Implementation",
-      link: "/mock-game",
-      difficulty: "Beginner",
-      status: "Complete"
-    },
-    // ... rest of your implementations array
-  ];
+  // Use implementations imported from ./data
+  const implementations = importedImplementations;
 
   return (
     <div className={styles.container}>
