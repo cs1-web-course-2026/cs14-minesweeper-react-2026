@@ -20,10 +20,6 @@ const CARD_STATUS_CLASS = {
   'Planning': styles.cardStatusPlanning,
 };
 
-const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Boolean).join(' ');
-
-const isInternalLink = (link) => link.startsWith('/');
-
 export default function Game() {
   // Add your implementations here by editing this array
   const implementations = [
