@@ -60,13 +60,22 @@ function Game() {
     },
     {
       id: 5,
+      title: "Mokh Nazar's Minesweeper",
+      description: "A unique take on minesweeper with custom mechanics and design",
+      author: "Mokh Nazar",
+      link: "/mokh-nazar",
+      difficulty: "Advanced",
+      status: "Complete"
+    },
+    {
+      id: 6,
       title: "Minesweeper",
       description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
       author: "Hurzhii Kateryna",
       link: "/hurzhii-kateryna",
       difficulty: "Beginner",
       status: "Complete"
-    },
+    }
   ]
 
   return (
