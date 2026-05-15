@@ -7,7 +7,6 @@ import MockGame from './pages/MockGame'
 import KvitkaAlinaGame from "./pages/KvitkaAlina";
 import PolivanovDanyloGame from "./pages/PolivanovDanylo";
 import HurzhiiKateryna from './pages/HurzhiiKateryna'
-import KvitkaAlinaGame from './pages/KvitkaAlina'
 
 function App() {
   return (
