@@ -94,6 +94,15 @@ export default function Game() {
       link: "/polivanov-danylo",
       difficulty: "Intermediate",
       status: "Complete"
+    },
+    {
+      id: 8,
+      title: "Minesweeper (Yasinska)",
+      description: "My React implementation",
+      author: "Yasinska Anastasiia",
+      link: "/yasinska-anastasiia",
+      difficulty: "Intermediate",
+      status: "In Progress"
     }
   ]
 
