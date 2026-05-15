@@ -1,9 +1,48 @@
 import { useEffect, useState } from 'react'
 import styles from './Minesweeper.module.css'
-import { CELL_STATE, CELL_TYPE, COLS, GAME_STATUS, MINES_COUNT, ROWS } from './constants'
-import { cloneField, countFlags, generateField, openAllMines, openEmptyCells } from './utils'
+import {
+  CELL_STATE,
+  CELL_TYPE,
+  COLS,
+  GAME_STATUS,
+  MINES_COUNT,
+  ROWS,
+} from './constants'
+import {
+  cloneField,
+  countFlags,
+  generateField,
+  openAllMines,
+  openEmptyCells,
+} from './utils'
 
-function Cell({ cell, onOpen, onFlag }) {
+function getCellLabel(cell, rowIndex, colIndex) {
+  const position = `Row ${rowIndex + 1}, column ${colIndex + 1}`
+
+  if (cell.state === CELL_STATE.CLOSED) {
+    return `${position}, closed cell`
+  }
+
+  if (cell.state === CELL_STATE.FLAGGED) {
+    return `${position}, flagged cell`
+  }
+
+  if (cell.type === CELL_TYPE.MINE && cell.isHit) {
+    return `${position}, opened mine`
+  }
+
+  if (cell.type === CELL_TYPE.MINE) {
+    return `${position}, mine`
+  }
+
+  if (cell.neighborMines > 0) {
+    return `${position}, opened cell with ${cell.neighborMines} neighbouring mines`
+  }
+
+  return `${position}, empty opened cell`
+}
+
+function Cell({ cell, rowIndex, colIndex, onOpen, onFlag }) {
   const classNames = [styles.cell]
 
   if (cell.state === CELL_STATE.CLOSED) {
@@ -46,7 +85,7 @@ function Cell({ cell, onOpen, onFlag }) {
       className={classNames.join(' ')}
       onClick={onOpen}
       onContextMenu={onFlag}
-      aria-label="Minesweeper cell"
+      aria-label={getCellLabel(cell, rowIndex, colIndex)}
     >
       {content}
     </button>
@@ -58,13 +97,15 @@ function Board({ field, onOpenCell, onToggleFlag }) {
     <section
       className={styles.board}
       style={{ gridTemplateColumns: `repeat(${COLS}, 28px)` }}
-      aria-label="Ігрове поле"
+      aria-label="Minesweeper board"
     >
       {field.map((row, rowIndex) =>
         row.map((cell, colIndex) => (
           <Cell
             key={`${rowIndex}-${colIndex}`}
             cell={cell}
+            rowIndex={rowIndex}
+            colIndex={colIndex}
             onOpen={() => onOpenCell(rowIndex, colIndex)}
             onFlag={(event) => {
               event.preventDefault()
@@ -90,27 +131,48 @@ function Header({ flagsLeft, seconds, status, onRestart }) {
 
   return (
     <header className={styles.header}>
-      <div className={styles.counter}>{String(flagsLeft).padStart(3, '0')}</div>
+      <div className={styles.counter} aria-label="Flags left">
+        {String(flagsLeft).padStart(3, '0')}
+      </div>
 
-      <button type="button" className={styles.smile} onClick={onRestart}>
+      <button
+        type="button"
+        className={styles.smile}
+        onClick={onRestart}
+        aria-label="Restart game"
+      >
         {emoji}
       </button>
 
-      <div className={styles.counter}>{String(seconds).padStart(3, '0')}</div>
+      <div className={styles.counter} aria-label="Timer">
+        {String(seconds).padStart(3, '0')}
+      </div>
     </header>
   )
 }
 
 function GameStatus({ status }) {
   if (status === GAME_STATUS.WIN) {
-    return <p className={styles.status}>Вітаю! Ви перемогли.</p>
+    return (
+      <p className={styles.status} role="status" aria-live="polite">
+        Вітаю! Ви перемогли.
+      </p>
+    )
   }
 
   if (status === GAME_STATUS.LOSE) {
-    return <p className={styles.status}>Гру завершено. Ви натиснули на міну.</p>
+    return (
+      <p className={styles.status} role="status" aria-live="polite">
+        Гру завершено. Ви натиснули на міну.
+      </p>
+    )
   }
 
-  return <p className={styles.status}>Гра триває.</p>
+  return (
+    <p className={styles.status} role="status" aria-live="polite">
+      Гра триває.
+    </p>
+  )
 }
 
 function BilotserkovetsDanyloGame() {
