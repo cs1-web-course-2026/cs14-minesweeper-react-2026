@@ -1,25 +1,26 @@
-import { Link } from 'react-router-dom'
-import styles from './Game.module.css'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styles from './Game.module.css';
 
 const STATUS_CLASS = {
   'Complete': styles.statusComplete,
   'In Progress': styles.statusInProgress,
   'Planning': styles.statusPlanning,
-}
+};
 
 const DIFFICULTY_CLASS = {
   'Beginner': styles.difficultyBeginner,
   'Intermediate': styles.difficultyIntermediate,
   'Advanced': styles.difficultyAdvanced,
-}
+};
 
 const CARD_STATUS_CLASS = {
   'Complete': styles.cardStatusComplete,
   'In Progress': styles.cardStatusInProgress,
   'Planning': styles.cardStatusPlanning,
-}
+};
 
-function Game() {
+export default function Game() {
   // Add your implementations here by editing this array
   const implementations = [
     {
@@ -67,20 +68,46 @@ function Game() {
       difficulty: "Advanced",
       status: "Complete"
     },
-    
-    { 
-     id: 6,
-     title: "Bilotserkovets Danylo's Minesweeper",
-     description: "A React implementation of Minesweeper with component structure, timer, flagging, recursive opening, and win/lose detection.",
-     author: "Bilotserkovets Danylo",
-     link: "/bilotserkovets-danylo",
-     difficulty: "Intermediate",
-     status: "Complete"    
+    {
+      id: 6,
+      title: "Minesweeper",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
+      author: "Hurzhii Kateryna",
+      link: "/hurzhii-kateryna",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    {
+      id: 7,
+      title: "Alevtyna's Minesweeper",
+      description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
+      author: "Kisilova-Cholariia Alevtyna",
+      link: "/kisilova-cholariia-alevtyna",
+      difficulty: "Intermediate",
+      status: "Complete"
+    },
+    {
+      id: 7,
+      title: "Polivanov Danylo's Minesweeper",
+      description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
+      author: "Polivanov Danylo",
+      link: "/polivanov-danylo",
+      difficulty: "Intermediate",
+      status: "Complete"
+    },
+    {
+      id: 8,
+      title: "Minesweeper (Yasinska)",
+      description: "My React implementation",
+      author: "Yasinska Anastasiia",
+      link: "/yasinska-anastasiia",
+      difficulty: "Intermediate",
+      status: "In Progress"
     }
   ]
 
   return (
-    <div className={styles.gameContainer}>
+     <div className={styles.gameContainer}>
       <div className={styles.gameHeader}>
         <h1>Student Implementations</h1>
         <p>Browse student minesweeper implementations</p>
@@ -137,5 +164,3 @@ function Game() {
     </div>
   )
 }
-
-export default Game
