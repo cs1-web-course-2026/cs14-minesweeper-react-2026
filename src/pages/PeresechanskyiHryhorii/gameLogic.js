@@ -51,28 +51,45 @@ export const useGameLogic = () => {
   }, [status]);
 
   const openCell = useCallback((r, c) => {
-    if (status !== GAME_STATUS.PLAYING) return;
-    
-    setBoard(prev => {
-      if (prev[r][c].state !== CELL_STATE.CLOSED) return prev;
-      const newBoard = prev.map(row => row.map(cell => ({...cell})));
-      
-      const reveal = (row, col) => {
-        if (row < 0 || row >= GRID_SIZE || col < 0 || col >= GRID_SIZE) return;
-        const cell = newBoard[row][col];
-        if (cell.state !== CELL_STATE.CLOSED) return;
+  if (status !== GAME_STATUS.PLAYING) return;
+  if (board[r][c].state !== CELL_STATE.CLOSED) return;
 
-        cell.state = CELL_STATE.OPEN;
-        if (cell.hasMine) {
-          setStatus(GAME_STATUS.LOST);
-          return;
+  const newBoard = board.map(row => row.map(cell => ({ ...cell })));
+
+  let hitMine = false;
+  const reveal = (row, col) => {
+    if (row < 0 || row >= GRID_SIZE || col < 0 || col >= GRID_SIZE) return;
+
+    const cell = newBoard[row][col];
+    if (cell.state !== CELL_STATE.CLOSED) return;
+
+    cell.state = CELL_STATE.OPEN;
+
+    if (cell.hasMine) {
+      hitMine = true;
+      return;
+    }
+
+    if (cell.adjacentMines === 0) {
+      for (let dr = -1; dr <= 1; dr++) {
+        for (let dc = -1; dc <= 1; dc++) {
+          reveal(row + dr, col + dc);
         }
-        
-        if (cell.adjacentMines === 0) {
-          for (let dr = -1; dr <= 1; dr++) {
-            for (let dc = -1; dc <= 1; dc++) {
-              reveal(row + dr, col + dc);
-            }
+      }
+    }
+  };
+  reveal(r, c);
+
+  setBoard(newBoard);
+  if (hitMine) {
+    setStatus(GAME_STATUS.LOST);
+  } else {
+    const allSafeOpen = newBoard.flat().every(cell => cell.hasMine || cell.state === CELL_STATE.OPEN);
+    if (allSafeOpen) {
+      setStatus(GAME_STATUS.WON);
+    }
+  }
+}, [board, status]);
           }
         }
       };
