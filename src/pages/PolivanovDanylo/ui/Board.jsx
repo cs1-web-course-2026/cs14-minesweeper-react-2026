@@ -1,3 +1,5 @@
+import React from 'react';
+
 import styles from './board.module.css';
 import Cell from './Cell.jsx';
 

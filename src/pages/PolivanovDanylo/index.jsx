@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer } from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 
 import styles from './minesweeper.module.css';
 
