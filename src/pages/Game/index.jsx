@@ -69,6 +69,15 @@ function Game() {
     },
     {
       id: 6,
+      title: "Minesweeper",
+      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
+      author: "Hurzhii Kateryna",
+      link: "/hurzhii-kateryna",
+      difficulty: "Beginner",
+      status: "Complete"
+    },
+    {
+      id: 7,
       title: "Polivanov Danylo's Minesweeper",
       description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
       author: "Polivanov Danylo",
