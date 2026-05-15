@@ -75,6 +75,15 @@ function Game() {
       link: "/hurzhii-kateryna",
       difficulty: "Beginner",
       status: "Complete"
+    },
+    {
+      id: 7,
+      title: "Polivanov Danylo's Minesweeper",
+      description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
+      author: "Polivanov Danylo",
+      link: "/polivanov-danylo",
+      difficulty: "Intermediate",
+      status: "Complete"
     }
   ]
 
