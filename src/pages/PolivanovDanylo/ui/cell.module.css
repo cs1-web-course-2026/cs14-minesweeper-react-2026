@@ -1,0 +1,65 @@
+.cell {
+  width: var(--cell-size, 42px);
+  height: var(--cell-size, 42px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 22px;
+  user-select: none;
+}
+
+.closed {
+  background: #c0c0c0;
+  border: 3px solid #7b7b7b;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.closed:hover {
+  background: #d9d9d9;
+}
+
+.closed:active {
+  background: #a0a0a0;
+  border-top-color: #7b7b7b;
+  border-left-color: #7b7b7b;
+  border-bottom-color: #ffffff;
+  border-right-color: #ffffff;
+}
+
+.opened {
+  background: #d9d9d9;
+  border: 1px solid #8a8a8a;
+  cursor: default;
+}
+
+.flagged {
+  background: #c0c0c0;
+  border: 3px solid #7b7b7b;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  cursor: pointer;
+}
+
+.mine {
+  background: #d9d9d9;
+  color: #000;
+}
+
+.number1 { color: blue; }
+.number2 { color: green; }
+.number3 { color: red; }
+.number4 { color: darkblue; }
+.number5 { color: brown; }
+.number6 { color: teal; }
+.number7 { color: black; }
+.number8 { color: gray; }
+
+@media (max-width: 600px) {
+  .cell {
+    font-size: 18px;
+  }
+}
