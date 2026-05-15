@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Game.module.css';
-import { implementations as importedImplementations } from './data';
 
 const STATUS_CLASS = {
   'Complete': styles.statusComplete,
@@ -26,9 +25,6 @@ const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Bo
 const isInternalLink = (link) => link.startsWith('/');
 
 export default function Game() {
-  // Use implementations imported from ./data
-  const implementations = importedImplementations;
-function Game() {
   // Add your implementations here by editing this array
   const implementations = [
     {
@@ -87,6 +83,15 @@ function Game() {
     },
     {
       id: 7,
+      title: "Alevtyna's Minesweeper",
+      description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
+      author: "Kisilova-Cholariia Alevtyna",
+      link: "/kisilova-cholariia-alevtyna",
+      difficulty: "Intermediate",
+      status: "Complete"
+    },
+    {
+      id: 7,
       title: "Polivanov Danylo's Minesweeper",
       description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
       author: "Polivanov Danylo",
@@ -97,41 +102,60 @@ function Game() {
   ]
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Minesweeper Implementations</h1>
-        <p className={styles.subtitle}>Explore different versions of the classic game</p>
-      </header>
+     <div className={styles.gameContainer}>
+      <div className={styles.gameHeader}>
+        <h1>Student Implementations</h1>
+        <p>Browse student minesweeper implementations</p>
+        <div className={styles.instructions}>
+          <p><strong>To add implementations:</strong> Edit the implementations array in the code</p>
+        </div>
+      </div>
 
-      <div className={styles.grid}>
+      <div className={styles.implementationsList}>
         {implementations.map((impl) => (
-          <div key={impl.id} className={getBadgeClass(styles.card, CARD_STATUS_CLASS[impl.status])}>
+          <div
+            key={impl.id}
+            className={[styles.implementationCard, CARD_STATUS_CLASS[impl.status]].filter(Boolean).join(' ')}
+          >
             <div className={styles.cardHeader}>
-              <h2 className={styles.cardTitle}>{impl.title}</h2>
-              <span className={getBadgeClass(styles.badge, STATUS_CLASS[impl.status])}>
-                {impl.status}
-              </span>
+              <h3>{impl.title}</h3>
+              <div className={styles.badges}>
+                <span className={[styles.badge, STATUS_CLASS[impl.status]].filter(Boolean).join(' ')}>
+                  {impl.status}
+                </span>
+                <span className={[styles.badge, DIFFICULTY_CLASS[impl.difficulty]].filter(Boolean).join(' ')}>
+                  {impl.difficulty}
+                </span>
+              </div>
             </div>
-            
+            <p className={styles.author}>by {impl.author}</p>
             <p className={styles.description}>{impl.description}</p>
-            
-            <div className={styles.meta}>
-              <span className={getBadgeClass(styles.difficulty, DIFFICULTY_CLASS[impl.difficulty])}>
-                {impl.difficulty}
-              </span>
-              <span className={styles.author}>by {impl.author}</span>
+            <div className={styles.cardActions}>
+              {impl.link.startsWith('/') ? (
+                <Link to={impl.link} className={styles.linkBtn}>
+                  View Implementation →
+                </Link>
+              ) : (
+                <a
+                  href={impl.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.linkBtn}
+                >
+                  View Implementation →
+                </a>
+              )}
             </div>
-
-            {isInternalLink(impl.link) ? (
-              <Link to={impl.link} className={styles.button}>Play Now</Link>
-            ) : (
-              <a href={impl.link} target="_blank" rel="noopener noreferrer" className={styles.button}>
-                View on GitHub
-              </a>
-            )}
           </div>
         ))}
       </div>
+
+      {implementations.length === 0 && (
+        <div className={styles.emptyState}>
+          <h2>No implementations yet</h2>
+          <p>Add implementations by editing the code</p>
+        </div>
+      )}
     </div>
-  );
+  )
 }
