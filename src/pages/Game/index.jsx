@@ -22,6 +22,7 @@ const CARD_STATUS_CLASS = {
 };
 
 const getBadgeClass = (baseClass, typeClass) => [baseClass, typeClass].filter(Boolean).join(' ');
+
 const isInternalLink = (link) => link.startsWith('/');
 
 export default function Game() {
