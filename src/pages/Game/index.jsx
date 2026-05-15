@@ -1,26 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Game.module.css';
+import { Link } from 'react-router-dom'
+import styles from './Game.module.css'
 
 const STATUS_CLASS = {
   'Complete': styles.statusComplete,
   'In Progress': styles.statusInProgress,
   'Planning': styles.statusPlanning,
-};
+}
 
 const DIFFICULTY_CLASS = {
   'Beginner': styles.difficultyBeginner,
   'Intermediate': styles.difficultyIntermediate,
   'Advanced': styles.difficultyAdvanced,
-};
+}
 
 const CARD_STATUS_CLASS = {
   'Complete': styles.cardStatusComplete,
   'In Progress': styles.cardStatusInProgress,
   'Planning': styles.cardStatusPlanning,
-};
+}
 
-export default function Game() {
+function Game() {
   // Add your implementations here by editing this array
   const implementations = [
     {
@@ -112,11 +111,11 @@ export default function Game() {
       link: "/bilotserkovets-danylo",
       difficulty: "Intermediate",
       status: "Complete"
-    }
+    }   
   ]
 
   return (
-     <div className={styles.gameContainer}>
+    <div className={styles.gameContainer}>
       <div className={styles.gameHeader}>
         <h1>Student Implementations</h1>
         <p>Browse student minesweeper implementations</p>
@@ -173,3 +172,5 @@ export default function Game() {
     </div>
   )
 }
+
+export default Game
