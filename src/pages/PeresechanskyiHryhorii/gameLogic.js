@@ -90,9 +90,7 @@ export const useGameLogic = () => {
     }
   }
 }, [board, status]);
-          }
-        }
-      };
+          };
 
       reveal(r, c);
 
