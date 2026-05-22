@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.module.css';
 
-const Cell = React.memo(({ r, c, cell, onOpen, onFlag }) => {
+const Cell = React.memo(({ row, col, cell, onOpen, onFlag }) => {
   const content = cell.state === 'open' 
     ? (cell.hasMine ? '💣' : (cell.adjacentMines || '')) 
     : (cell.state === 'flagged' ? '🚩' : '');
