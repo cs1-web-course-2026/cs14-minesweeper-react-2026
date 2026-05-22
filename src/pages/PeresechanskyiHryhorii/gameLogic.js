@@ -51,55 +51,45 @@ export const useGameLogic = () => {
   }, [status]);
 
   const openCell = useCallback((r, c) => {
-  if (status !== GAME_STATUS.PLAYING) return;
-  if (board[r][c].state !== CELL_STATE.CLOSED) return;
+    if (status !== GAME_STATUS.PLAYING) return;
+    if (board[r][c].state !== CELL_STATE.CLOSED) return;
 
-  const newBoard = board.map(row => row.map(cell => ({ ...cell })));
+    const newBoard = board.map(row => row.map(cell => ({ ...cell })));
 
-  let hitMine = false;
-  const reveal = (row, col) => {
-    if (row < 0 || row >= GRID_SIZE || col < 0 || col >= GRID_SIZE) return;
+    let hitMine = false;
+    const reveal = (row, col) => {
+      if (row < 0 || row >= GRID_SIZE || col < 0 || col >= GRID_SIZE) return;
 
-    const cell = newBoard[row][col];
-    if (cell.state !== CELL_STATE.CLOSED) return;
+      const cell = newBoard[row][col];
+      if (cell.state !== CELL_STATE.CLOSED) return;
 
-    cell.state = CELL_STATE.OPEN;
+      cell.state = CELL_STATE.OPEN;
 
-    if (cell.hasMine) {
-      hitMine = true;
-      return;
-    }
+      if (cell.hasMine) {
+        hitMine = true;
+        return;
+      }
 
-    if (cell.adjacentMines === 0) {
-      for (let dr = -1; dr <= 1; dr++) {
-        for (let dc = -1; dc <= 1; dc++) {
-          reveal(row + dr, col + dc);
+      if (cell.adjacentMines === 0) {
+        for (let dr = -1; dr <= 1; dr++) {
+          for (let dc = -1; dc <= 1; dc++) {
+            reveal(row + dr, col + dc);
+          }
         }
       }
+    };
+    reveal(r, c);
+
+    setBoard(newBoard);
+    if (hitMine) {
+      setStatus(GAME_STATUS.LOST);
+    } else {
+      const allSafeOpen = newBoard.flat().every(cell => cell.hasMine || cell.state === CELL_STATE.OPEN);
+      if (allSafeOpen) {
+        setStatus(GAME_STATUS.WON);
+      }
     }
-  };
-  reveal(r, c);
-
-  setBoard(newBoard);
-  if (hitMine) {
-    setStatus(GAME_STATUS.LOST);
-  } else {
-    const allSafeOpen = newBoard.flat().every(cell => cell.hasMine || cell.state === CELL_STATE.OPEN);
-    if (allSafeOpen) {
-      setStatus(GAME_STATUS.WON);
-    }
-  }
-}, [board, status]);
-          };
-
-      reveal(r, c);
-
-      const closedNonMines = newBoard.flat().filter(c => !c.hasMine && c.state !== CELL_STATE.OPEN).length;
-      if (closedNonMines === 0 && status !== GAME_STATUS.LOST) setStatus(GAME_STATUS.WON);
-
-      return newBoard;
-    });
-  }, [status]);
+  }, [board, status]);
 
   const toggleFlag = useCallback((r, c) => {
     if (status !== GAME_STATUS.PLAYING) return;
