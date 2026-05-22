@@ -61,6 +61,15 @@ export default function Game() {
     },
     {
       id: 5,
+      title: "Minesweeper React",
+      description: "Класичний сапер",
+      author: "Peresechanskyi Hryhorii",
+      link: "/peresechanskyi-hryhorii",
+      difficulty: "Beginner",
+      status: "In Progress"
+    },
+    {
+      id: 6,
       title: "Mokh Nazar's Minesweeper",
       description: "A unique take on minesweeper with custom mechanics and design",
       author: "Mokh Nazar",
@@ -69,7 +78,7 @@ export default function Game() {
       status: "Complete"
     },
     {
-      id: 6,
+      id: 7,
       title: "Minesweeper",
       description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
       author: "Hurzhii Kateryna",
@@ -87,7 +96,7 @@ export default function Game() {
       status: "Complete"
     },
     {
-      id: 7,
+      id: 8,
       title: "Polivanov Danylo's Minesweeper",
       description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
       author: "Polivanov Danylo",

@@ -6,6 +6,7 @@ import Game from './pages/Game'
 import Minesweeper from './pages/Kisilova-CholariiaAlevtyna/Minesweeper';
 import MokhNazarGame from './pages/MokhNazar';
 import MockGame from './pages/MockGame'
+import PeresechanskyiGame from './pages/PeresechanskyiHryhorii'
 import KvitkaAlinaGame from "./pages/KvitkaAlina";
 import BilotserkovetsDanyloGame from './pages/BilotserkovetsDanylo'
 import PolivanovDanyloGame from "./pages/PolivanovDanylo";
@@ -21,6 +22,7 @@ function App() {
         <Route path="game" element={<Game />} />
         <Route path="kisilova-cholariia-alevtyna" element={<Minesweeper />} />
         <Route path="mock-game" element={<MockGame />} />
+        <Route path="peresechanskyi-hryhorii" element={<PeresechanskyiGame />} />
         <Route path="hurzhii-kateryna" element={<HurzhiiKateryna />} />
         <Route path="kvitka-alina" element={<KvitkaAlinaGame />} />
         <Route path="bilotserkovets-danylo" element={<BilotserkovetsDanyloGame />} />
