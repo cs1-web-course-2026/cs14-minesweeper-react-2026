@@ -1,0 +1,45 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--cols, 10), var(--cell-size, 42px));
+  grid-template-rows: repeat(var(--rows, 10), var(--cell-size, 42px));
+  gap: 2px;
+  background: #7b7b7b;
+  padding: 4px;
+  border: 4px solid #7b7b7b;
+  border-top-color: #ffffff;
+  border-left-color: #ffffff;
+  border-radius: 8px;
+  position: relative;
+}
+
+.board::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 20px;
+  color: red;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 6px;
+}
+
+.board[data-status="win"]::after {
+  display: flex;
+  content: "ПЕРЕМОГА";
+}
+
+.board[data-status="lose"]::after {
+  display: flex;
+  content: "ПРОГРАШ";
+}
+
+@media (max-width: 600px) {
+  .board {
+    --cell-size: 34px;
+  }
+}

@@ -1,0 +1,17 @@
+.status {
+  font-size: 1.3rem;
+  font-weight: bold;
+  min-height: 30px;
+}
+
+.playing {
+  color: #1976d2;
+}
+
+.won {
+  color: #388e3c;
+}
+
+.lost {
+  color: #d32f2f;
+}

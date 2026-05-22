@@ -1,0 +1,47 @@
+.game {
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.button {
+  margin: 10px;
+  padding: 10px 20px;
+  background: green;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  justify-content: center;
+  gap: 3px;
+  margin-top: 20px;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  background: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.open {
+  background: #ccc;
+  cursor: default;
+}
+.status {
+  font-weight: bold;
+  margin: 10px 0;
+}
+.timer {
+  font-size: 18px;
+  margin-bottom: 10px;
+}

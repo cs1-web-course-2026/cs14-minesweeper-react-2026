@@ -1,0 +1,52 @@
+.cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #aaa;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+  transition: background-color 0.1s ease;
+  /* Reset button defaults */
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 0;
+  outline: none;
+}
+
+.cell:focus {
+  outline: 2px solid #4a90e2;
+  outline-offset: 1px;
+}
+
+.cell:hover:not(.revealed):not(.flagged) {
+  background-color: #bbb;
+}
+
+.cell:active {
+  filter: brightness(0.95);
+}
+
+.revealed {
+  background-color: #ddd;
+  cursor: default;
+}
+
+.mine {
+  background-color: #ff6b6b;
+  font-size: 1.3rem;
+}
+
+.flag {
+  font-size: 1.2rem;
+}
+
+.number {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
