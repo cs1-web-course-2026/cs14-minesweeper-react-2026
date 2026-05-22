@@ -1,0 +1,250 @@
+.page {
+  min-height: 100vh;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+}
+
+.game {
+  width: min(100%, 640px);
+  padding: 18px;
+  border: 3px solid var(--line);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(238, 247, 244, 0.94));
+  box-shadow: var(--shadow);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.display {
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: #122230;
+  color: #e5f5ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.displayLabel {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+.displayValue {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.status {
+  margin-bottom: 12px;
+  border: 2px solid rgba(13, 29, 42, 0.14);
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.72);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.statusBadge {
+  flex: 0 0 auto;
+  min-width: 54px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  text-align: center;
+  background: #e8f1ed;
+  color: #29454e;
+}
+
+.statusBadge[data-status='win'] {
+  background: #dbf4e1;
+  color: #1f6a37;
+}
+
+.statusBadge[data-status='lose'] {
+  background: #ffe0dc;
+  color: #a63b31;
+}
+
+.statusText {
+  margin: 0;
+  line-height: 1.5;
+  color: #31424b;
+}
+
+.board {
+  display: grid;
+  gap: 4px;
+  border: 3px solid var(--line);
+  border-radius: 16px;
+  background: #d3ebe4;
+  padding: 10px;
+}
+
+.cell {
+  aspect-ratio: 1;
+  border: 2px solid #32544e;
+  border-radius: 8px;
+  background: linear-gradient(160deg, #87c8ba, #6baea1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(14px, 1.8vw, 22px);
+  font-weight: 700;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  color: transparent;
+  cursor: pointer;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  padding: 0;
+}
+
+.cell:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.cell:disabled {
+  cursor: default;
+}
+
+.open {
+  background: #f1f3f0;
+  border-color: #95a9ad;
+  color: #1b2733;
+}
+
+.flagged::before {
+  content: '⚑';
+  color: #f24839;
+  font-size: clamp(18px, 2vw, 26px);
+  line-height: 1;
+}
+
+.mine,
+.mineHit {
+  position: relative;
+  color: transparent;
+}
+
+.mine::before,
+.mineHit::before {
+  content: '';
+  width: 52%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #111c27;
+  box-shadow: 0 0 0 2px #273747;
+}
+
+.mineHit {
+  background: #ffd8d4;
+  border-color: #a53930;
+}
+
+.mineHit::before {
+  background: #ff3c2f;
+  box-shadow: 0 0 0 2px #8d2a24;
+}
+
+.number1 {
+  color: #1873d3;
+}
+
+.number2 {
+  color: #007a3e;
+}
+
+.number3 {
+  color: #c53d30;
+}
+
+.number4 {
+  color: #5b31bf;
+}
+
+.number5 {
+  color: #8d2a24;
+}
+
+.number6 {
+  color: #0e8383;
+}
+
+.number7 {
+  color: #181818;
+}
+
+.number8 {
+  color: #67757b;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.backLink {
+  font-weight: 700;
+  color: #395462;
+}
+
+.restartButton {
+  min-width: 92px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: white;
+  background: linear-gradient(135deg, var(--accent), #ff8754);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.restartButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(195, 63, 38, 0.35);
+}
+
+.restartButton:active {
+  transform: translateY(1px);
+  background: linear-gradient(135deg, var(--accent-strong), #de623c);
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 16px;
+  }
+
+  .game {
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .status {
+    align-items: flex-start;
+  }
+}

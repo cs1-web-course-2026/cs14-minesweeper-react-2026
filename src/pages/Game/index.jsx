@@ -1,166 +1,42 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Game.module.css';
 
-const STATUS_CLASS = {
-  'Complete': styles.statusComplete,
-  'In Progress': styles.statusInProgress,
-  'Planning': styles.statusPlanning,
-};
+export const implementations = [
+  {
+    id: 'repka-maksym',
+    title: 'Minesweeper',
+    author: 'Repka Maksym',
+    path: '/repka-maksym',
+    description: 'Компонентна React-версія гри Minesweeper з модульними стилями.',
+  },
+];
 
-const DIFFICULTY_CLASS = {
-  'Beginner': styles.difficultyBeginner,
-  'Intermediate': styles.difficultyIntermediate,
-  'Advanced': styles.difficultyAdvanced,
-};
-
-const CARD_STATUS_CLASS = {
-  'Complete': styles.cardStatusComplete,
-  'In Progress': styles.cardStatusInProgress,
-  'Planning': styles.cardStatusPlanning,
-};
-
-export default function Game() {
-  // Add your implementations here by editing this array
-  const implementations = [
-    {
-      id: 1,
-      title: "Mock Minesweeper Game",
-      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection. This serves as an example for students.",
-      author: "Example Implementation",
-      link: "/mock-game",
-      difficulty: "Beginner",
-      status: "Complete"
-    },
-    {
-      id: 2,
-      title: "Basic Minesweeper",
-      description: "A simple implementation with basic game mechanics",
-      author: "Author Name",
-      link: "#",
-      difficulty: "Beginner",
-      status: "Complete"
-    },
-    {
-      id: 3,
-      title: "Advanced Minesweeper",
-      description: "Features timer, high scores, and custom difficulty",
-      author: "Author name",
-      link: "#",
-      difficulty: "Intermediate",
-      status: "In Progress"
-    },
-    {
-      id: 4,
-      title: "Minesweeper with Themes",
-      description: "Multiple visual themes and sound effects",
-      author: "Author name",
-      link: "#",
-      difficulty: "Advanced",
-      status: "Planning"
-    },
-    {
-      id: 5,
-      title: "Mokh Nazar's Minesweeper",
-      description: "A unique take on minesweeper with custom mechanics and design",
-      author: "Mokh Nazar",
-      link: "/mokh-nazar",
-      difficulty: "Advanced",
-      status: "Complete"
-    },
-    {
-      id: 6,
-      title: "Minesweeper",
-      description: "A fully functional minesweeper implementation with timer, flagging, and win/lose detection.",
-      author: "Hurzhii Kateryna",
-      link: "/hurzhii-kateryna",
-      difficulty: "Beginner",
-      status: "Complete"
-    },
-    {
-      id: 7,
-      title: "Alevtyna's Minesweeper",
-      description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
-      author: "Kisilova-Cholariia Alevtyna",
-      link: "/kisilova-cholariia-alevtyna",
-      difficulty: "Intermediate",
-      status: "Complete"
-    },
-    {
-      id: 7,
-      title: "Polivanov Danylo's Minesweeper",
-      description: "A React Minesweeper implementation with timer, flagging, and win/lose states",
-      author: "Polivanov Danylo",
-      link: "/polivanov-danylo",
-      difficulty: "Intermediate",
-      status: "Complete"
-    },
-    {
-      id: 8,
-      title: "Minesweeper (Yasinska)",
-      description: "My React implementation",
-      author: "Yasinska Anastasiia",
-      link: "/yasinska-anastasiia",
-      difficulty: "Intermediate",
-      status: "In Progress"
-    }
-  ]
-
+export default function GamePage() {
   return (
-     <div className={styles.gameContainer}>
-      <div className={styles.gameHeader}>
-        <h1>Student Implementations</h1>
-        <p>Browse student minesweeper implementations</p>
-        <div className={styles.instructions}>
-          <p><strong>To add implementations:</strong> Edit the implementations array in the code</p>
-        </div>
-      </div>
+    <main className={styles.page}>
+      <section className={styles.hero}>
+        <p className={styles.kicker}>React lab</p>
+        <h1 className={styles.title}>Minesweeper implementations</h1>
+        <p className={styles.lead}>
+          Перейдіть до власної версії гри або використайте цей список як точку входу до
+          доступних реалізацій.
+        </p>
+      </section>
 
-      <div className={styles.implementationsList}>
-        {implementations.map((impl) => (
-          <div
-            key={impl.id}
-            className={[styles.implementationCard, CARD_STATUS_CLASS[impl.status]].filter(Boolean).join(' ')}
-          >
-            <div className={styles.cardHeader}>
-              <h3>{impl.title}</h3>
-              <div className={styles.badges}>
-                <span className={[styles.badge, STATUS_CLASS[impl.status]].filter(Boolean).join(' ')}>
-                  {impl.status}
-                </span>
-                <span className={[styles.badge, DIFFICULTY_CLASS[impl.difficulty]].filter(Boolean).join(' ')}>
-                  {impl.difficulty}
-                </span>
-              </div>
+      <section className={styles.grid} aria-label="Список реалізацій гри">
+        {implementations.map((implementation) => (
+          <article key={implementation.id} className={styles.card}>
+            <div>
+              <p className={styles.cardLabel}>{implementation.author}</p>
+              <h2 className={styles.cardTitle}>{implementation.title}</h2>
+              <p className={styles.cardText}>{implementation.description}</p>
             </div>
-            <p className={styles.author}>by {impl.author}</p>
-            <p className={styles.description}>{impl.description}</p>
-            <div className={styles.cardActions}>
-              {impl.link.startsWith('/') ? (
-                <Link to={impl.link} className={styles.linkBtn}>
-                  View Implementation →
-                </Link>
-              ) : (
-                <a
-                  href={impl.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.linkBtn}
-                >
-                  View Implementation →
-                </a>
-              )}
-            </div>
-          </div>
+            <Link className={styles.cardLink} to={implementation.path}>
+              Відкрити гру
+            </Link>
+          </article>
         ))}
-      </div>
-
-      {implementations.length === 0 && (
-        <div className={styles.emptyState}>
-          <h2>No implementations yet</h2>
-          <p>Add implementations by editing the code</p>
-        </div>
-      )}
-    </div>
-  )
+      </section>
+    </main>
+  );
 }
