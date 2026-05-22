@@ -103,7 +103,16 @@ export default function Game() {
       link: "/yasinska-anastasiia",
       difficulty: "Intermediate",
       status: "In Progress"
-    }
+    },
+    {
+      id: 9,
+      title: "Bilotserkovets Danylo's Minesweeper",
+      description: "A React implementation of Minesweeper with timer, flagging, recursive reveal, win/loss UI, and ancient ruins theme.",
+      author: "Bilotserkovets Danylo",
+      link: "/bilotserkovets-danylo",
+      difficulty: "Intermediate",
+      status: "Complete"
+    }   
   ]
 
   return (
