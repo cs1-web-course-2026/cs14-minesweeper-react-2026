@@ -1,3 +1,10 @@
+:global(:root) {
+  --line: #7bb8a8;
+  --shadow: 0 8px 32px rgba(72, 140, 120, 0.18);
+  --accent: #e85f2a;
+  --accent-strong: #c43d1a;
+}
+
 .page {
   min-height: 100vh;
   padding: 24px;
